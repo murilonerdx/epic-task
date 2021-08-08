@@ -12,6 +12,8 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.persistence.OneToOne;
+import javax.persistence.PostPersist;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -34,11 +36,11 @@ public class DbInitializer {
     userRepository.save(user);
 
     Perfil perfil = new Perfil(null, "Murilo", user,"a", 200.00);
+    perfilRepository.save(perfil);
     Tarefa task = new Tarefa(null, "Criar banco de dados Oracle", "Banco de dados com dados populados", LocalDate
         .now(), true,
         StatusTarefa.ANALISE, 0, 150.00, perfil);
     Tarefa task2 = new Tarefa(null, "Criar modelo no Azure", "Alguma coisa", LocalDate.now().minusDays(5), false,StatusTarefa.ANALISE, 0, 150, null);
-    perfilRepository.save(perfil);
     taskRepository.saveAll(Arrays.asList(task, task2));
     return false;
   }

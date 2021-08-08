@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Epic Task</title>
+    <link rel="icon" type="image/jpeg" sizes="1024x342" href="../static/img/campfire-guy-girl%20(1).jpg">
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../static/fonts/font-awesome.min.css" th:href="@{/fonts/font-awesome.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="../static/css/Login-Form-Clean.css" th:href="@{/css/Login-Form-Clean.css}">
+    <link rel="stylesheet" href="../static/css/Login-screen.css" th:href="@{/css/Login-screen.css}">
+    <link rel="stylesheet" href="../static/css/Navigation-with-Button.css" th:href="@{/css/Navigation-with-Button.css}">
+    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}">
+</head>
+
+<body class="text-center">
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+        <div class="container"><a class="navbar-brand" href="#">EPIC TASK</a>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#">Pendentes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/concluidas">Concluidas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Rankings</a></li>
+                </ul>
+                <h4 class="text-success" style="margin-right: 15px;">502pts</h4><span class="navbar-text actions"> <a class="login" href="#">Log In</a><a class="btn btn-light action-button" role="button" href="#">Sign Up</a></span>
+            </div>
+        </div>
+    </nav>
+    <h2 class="display-6 text-nowrap text-uppercase text-center" style="margin: 10px;margin-bottom: 10px;">Tarefas pendentes</h2><a class="btn btn-primary" data-bss-hover-animate="pulse" type="button" style="margin: 10px;margin-left: 35%;" href="/criarTarefa">Criar tarefa</a>
+    <div class="container">
+        <div class="row d-flex d-xxl-flex justify-content-around justify-content-xxl-center" th:each="tarefa : ${tarefas}">
+            <div class="col-md-6 text-center" style="box-shadow: 0px 0px 7px;margin: 10px;">
+                <div class="row">
+                    <div class="col">
+                        <h1 th:text="${tarefa.title}">Criando modelo de banco</h1>
+                    </div>
+                </div>
+                <p style="margin: 10px;" th:text="${tarefa.description}">Paragraph</p><strong class="text-success" th:text="${tarefa.score}">150pts</strong>
+                <div class="progress" style="margin-top: 10px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" th:attr="aria-valuenow=${tarefa.progress}" aria-valuemin="0" aria-valuemax="100" style="width: 50%;" th:text="${tarefa.progress} + '%'">50%</div>
+                </div><button class="btn btn-success" type="button" style="margin: 20px;">Pegar tarefa</button>
+            </div>
+            <div class="col-md-6 text-center" style="box-shadow: 0px 0px 5px;margin: 10px;" th:if="${tarefa.obtain == true}">
+                <div class="row">
+                    <div class="col">
+                        <h1 th:text="${tarefa.title}">Criando modelo de banco</h1>
+                    </div>
+                </div>
+                <p style="margin: 10px;" th:text="${tarefa.description}">Paragraph</p>
+                <p class="font-monospace text-break" th:text="${tarefa.perfil.name}">Murilo Pereira</p><strong class="text-success" th:text="${tarefa.score}">150pts</strong>
+                <div class="progress" style="margin-top: 10px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" th:attr="aria-valuenow=${tarefa.progress}" aria-valuemin="0" aria-valuemax="100" style="width: 50%;" th:text="${tarefa.progress} + '%'">50%</div>
+                </div>
+                <button class="btn btn-warning" type="button" style="margin: 20px;">Desistir da tarefa</button>
+            </div>
+        </div>
+    </div>
+    <script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../static/js/bs-init.js" th:src="@{/js/bs-init.js}"></script>
+</body>
+
+</html>

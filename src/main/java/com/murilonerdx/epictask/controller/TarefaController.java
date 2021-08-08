@@ -26,9 +26,14 @@ public class TarefaController {
     return mv;
   }
 
-  @RequestMapping(value="/tarefasConcluidas", method = RequestMethod.GET)
-  public String tarefasConcluidas(){
-    return "tarefasConcluidas";
+  @RequestMapping(value="/criarTarefa", method = RequestMethod.GET)
+  public String criarTarefa(){
+    return "criarTarefa";
+  }
+
+  @RequestMapping(value="/concluidas", method = RequestMethod.GET)
+  public String tarefasConcluida(){
+    return "concluidas";
   }
 
 }
