@@ -10,6 +10,7 @@ import com.murilonerdx.epictask.repository.UsuarioRepository;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.stream.Stream;
 import javax.persistence.OneToOne;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

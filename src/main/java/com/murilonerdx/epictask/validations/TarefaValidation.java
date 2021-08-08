@@ -10,6 +10,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -23,10 +24,10 @@ import org.hibernate.validator.constraints.Length;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TarefaValidation implements Serializable {
-  @NotEmpty(message="O campo titulo não pode estar vazio")
+  @NotBlank(message="O campo titulo não pode estar vazio")
   @Size(min=10, message="O titulo precisa ter no minimo 10 caracteres")
   private String title;
-  @NotEmpty(message="O campo descrição não pode estar vazio")
+  @NotBlank(message="O campo descrição não pode estar vazio")
   @Size(min=20, message="A descrição precisa ter no minimo 20 caracteres")
   private String description;
   @JsonFormat(pattern = "dd/MM/yyyy")
