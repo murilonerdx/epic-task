@@ -29,7 +29,6 @@ public class DbInitializer {
   private final PerfilRepository perfilRepository;
   private final TarefaRepository taskRepository;
 
-
   @Bean
   public boolean instantiateDatabase(){
     Usuario user = new Usuario(null, "mu-silva@outlook.com","123");

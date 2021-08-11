@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Epic Task</title>
     <link rel="icon" type="image/jpeg" sizes="1024x342" href="../static/img/campfire-guy-girl%20(1).jpg">
-    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css"
+          th:href="@{/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" href="../static/fonts/font-awesome.min.css" th:href="@{/fonts/font-awesome.min.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="../static/css/Login-Form-Clean.css" th:href="@{/css/Login-Form-Clean.css}">
@@ -16,38 +17,55 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
-        <div class="container"><a class="navbar-brand" href="#">EPIC TASK</a>
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="/">Pendentes</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/concluidas">Concluidas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Rankings</a></li>
-                </ul>
-                <h4 class="text-success" style="margin-right: 15px;">502pts</h4><span class="navbar-text actions"> <a class="login" href="#">Log In</a><a class="btn btn-light action-button" role="button" href="#">Sign Up</a></span>
-            </div>
+<nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+    <div class="container"><a class="navbar-brand" href="#">EPIC TASK</a>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Pendentes</a></li>
+                <li class="nav-item"><a class="nav-link" href="/tarefa/concluidas">Concluidas</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Rankings</a></li>
+            </ul>
+            <h4 class="text-success" style="margin-right: 15px;">502pts</h4><span class="navbar-text actions"> <a
+                class="login" href="#">Log In</a><a class="btn btn-light action-button" role="button"
+                                                    href="#">Sign Up</a></span>
         </div>
-    </nav>
-    <div class="row">
-        <div class="col">
-            <h1 class="display-6 text-uppercase text-center" style="margin-top: 10px;"><br>Criar nova tarefa<br><br></h1>
-            <div class="container">
-                <div class="row d-flex d-xxl-flex justify-content-around justify-content-xxl-center">
-                    <div class="col-md-6 text-center d-grid" style="box-shadow: 0px 0px 5px;margin: 10px;">
-                        <div class="row">
-                            <div class="col">
-                                <h1></h1>
-                            </div>
-                        </div><input type="text" name="title" placeholder="Digite um titulo *" required="" style="width: 100%;margin-top: 15px;"><textarea class="form-control-lg" style="margin-top: 20px;" name="description" placeholder="Digite uma descrição"></textarea>
-                        <p class="d-inline-block" style="margin: 10PX;">SELECIONE A QUANTIDADE DE PONTOS<br>50-100-150-200</p><input class="form-range" type="range" name="rageInput" min="50" max="200" step="50" style="filter: contrast(93%) hue-rotate(317deg) saturate(49%);"><button class="btn btn-success" data-bss-hover-animate="pulse" type="button" style="margin: 5px;margin-bottom: 20px;">SALVAR</button><button class="btn btn-light" data-bss-hover-animate="pulse" type="button" style="margin: 5px;margin-bottom: 20px;">CANCELAR</button>
+    </div>
+</nav>
+<div class="row">
+    <div class="col">
+        <h1 class="display-6 text-uppercase text-center" style="margin-top: 10px;"><br>Criar nova tarefa<br><br></h1>
+        <div class="container">
+            <div class="row d-flex d-xxl-flex justify-content-around justify-content-xxl-center">
+                <div class="col-md-6 text-center d-grid" style="box-shadow: 0px 0px 5px;margin: 10px;">
+                    <div class="row">
+                        <div class="col">
+                            <h1></h1>
+                        </div>
                     </div>
+                    <form action="/tarefa" method="POST">
+                        <input type="text" name="title" placeholder="Digite um titulo *" required=""
+                               style="width: 100%;margin-top: 15px;"><textarea class="form-control-lg"
+                                                                               style="margin-top: 20px;"
+                                                                               name="description"
+                                                                               placeholder="Digite uma descrição"></textarea>
+                        <br>
+                        <p class="d-inline-block" style="margin: 10PX;">SELECIONE A QUANTIDADE DE PONTOS<br>50-100-150-200
+                        </p><input class="form-range" type="range" name="score" min="50" max="200" step="50"
+                                   style="filter: contrast(93%) hue-rotate(317deg) saturate(49%);">
+                        <button class="btn btn-success" data-bss-hover-animate="pulse" type="submit"
+                                style="margin: 5px;margin-bottom: 20px;">SALVAR
+                        </button>
+                        <a class="btn btn-light" data-bss-hover-animate="pulse" type="button"
+                           style="margin: 5px;margin-bottom: 20px;" href="/tarefa">CANCELAR</a>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
-    <script src="../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
-    <script src="../static/js/bs-init.js" th:src="@{/js/bs-init.js}"></script>
+</div>
+<script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+<script src="../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<script src="../static/js/bs-init.js" th:src="@{/js/bs-init.js}"></script>
 </body>
 
 </html>

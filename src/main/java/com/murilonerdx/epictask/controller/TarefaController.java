@@ -4,7 +4,10 @@ import com.murilonerdx.epictask.entities.Tarefa;
 import com.murilonerdx.epictask.services.TarefaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,27 +16,45 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping(value = "/tarefa")
 public class TarefaController {
 
-  @Autowired
-  TarefaService service;
+    TarefaService service;
 
-  @RequestMapping(value="/", method = RequestMethod.GET)
-  public ModelAndView tarefasPendentes(){
-    ModelAndView mv = new ModelAndView("tarefas");
-    List<Tarefa> tarefas = service.getAll();
-    mv.addObject("tarefas",tarefas);
-    return mv;
-  }
+    @Autowired
+    public TarefaController(TarefaService service) {
+        this.service = service;
+    }
 
-  @RequestMapping(value="/criarTarefa", method = RequestMethod.GET)
-  public String criarTarefa(){
-    return "criarTarefa";
-  }
+    @GetMapping
+    public ModelAndView tarefasPendentes() {
+        ModelAndView mv = createListTaskView();
+        return mv;
+    }
 
-  @RequestMapping(value="/concluidas", method = RequestMethod.GET)
-  public String tarefasConcluida(){
-    return "concluidas";
-  }
+    @GetMapping(value = "/criarTarefa")
+    public String criarTarefa() {
+        return "criarTarefa";
+    }
+
+    @GetMapping(value = "/concluidas")
+    public String tarefasConcluida() {
+        return "concluidas";
+    }
+
+    @PostMapping()
+    public ModelAndView save(Tarefa task){
+        service.create(task);
+        ModelAndView mv = createListTaskView();
+        return mv;
+    }
+
+    private ModelAndView createListTaskView() {
+        ModelAndView mv = new ModelAndView("tarefas");
+        mv.addObject("tarefas", service.getAll());
+        return mv;
+    }
+
+
 
 }
