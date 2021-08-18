@@ -1,6 +1,7 @@
 package com.murilonerdx.epictask.services;
 
 import com.murilonerdx.epictask.entities.Tarefa;
+import com.murilonerdx.epictask.validations.TarefaValidation;
 
 import java.util.List;
 
@@ -9,5 +10,5 @@ public interface TarefaService {
     Tarefa getById(Long id);
     Tarefa update(Tarefa tarefa, Long id);
     void deleteById(Long id);
-    Tarefa create(Tarefa tarefa);
+    Tarefa create(TarefaValidation tarefaValidation);
 }

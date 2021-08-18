@@ -35,16 +35,17 @@
     pendentes</h2><a class="btn btn-primary" data-bss-hover-animate="pulse" type="button"
                      style="margin: 10px;margin-left: 35%;" href="/tarefa/criarTarefa">Criar tarefa</a>
 <div class="row d-flex justify-content-around justify-content-center" th:each="tarefa : ${tarefas}">
-    <div class="col-md-6 text-center" style="box-shadow: 0px 0px 7px;margin: 10px;">
+    <div class="col-md-6 text-center" style="box-shadow: 0px 0px 7px;margin: 10px;" th:if="${tarefa.obtain == false}">
         <div class="row">
             <h1 th:text="${tarefa.title}">Criando modelo de banco</h1>
         </div>
         <p style="margin: 10px;" th:text="${tarefa.description}">Paragraph</p><strong class="text-success"
                                                                                       th:text="${tarefa.score}">150pts</strong>
+
+
         <div class="progress" style="margin-top: 10px;">
             <div class="progress-bar progress-bar-striped progress-bar-animated"
-                 th:attr="aria-valuenow=${tarefa.progress}" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"
-                 th:text="${tarefa.progress} + '%'">50%
+                 th:attr="aria-valuenow=${tarefa.progress}" aria-valuemin="0" aria-valuemax="100"  th:style="'width: ' + ${tarefa.progress} +'%;'" th:text="${tarefa.progress} + '%'">
             </div>
         </div>
         <button class="btn btn-success" type="button" style="margin: 20px;">Pegar tarefa</button>
@@ -56,12 +57,14 @@
             </div>
         </div>
         <p style="margin: 10px;" th:text="${tarefa.description}">Paragraph</p>
-        <p class="font-monospace text-break" th:text="${tarefa.perfil.name}">Murilo Pereira</p><strong
+        <strong class="font-monospace text-break" th:text="${tarefa.perfil.name}">Murilo Pereira</strong>
+        <br>
+        <strong
             class="text-success" th:text="${tarefa.score}">150pts</strong>
+
         <div class="progress" style="margin-top: 10px;">
             <div class="progress-bar progress-bar-striped progress-bar-animated"
-                 th:attr="aria-valuenow=${tarefa.progress}" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"
-                 th:text="${tarefa.progress} + '%'">50%
+                 th:attr="aria-valuenow=${tarefa.progress}" aria-valuemin="0" aria-valuemax="100"  th:style="'width:' + ${tarefa.progress} +'%;'" th:text="${tarefa.progress} + '%'">
             </div>
         </div>
         <button class="btn btn-warning" type="button" style="margin: 20px;">Desistir da tarefa</button>

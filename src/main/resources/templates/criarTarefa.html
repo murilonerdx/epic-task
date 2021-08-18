@@ -42,16 +42,19 @@
                             <h1></h1>
                         </div>
                     </div>
-                    <form action="/tarefa" method="POST">
-                        <input type="text" name="title" placeholder="Digite um titulo *" required=""
-                               style="width: 100%;margin-top: 15px;"><textarea class="form-control-lg"
-                                                                               style="margin-top: 20px;"
-                                                                               name="description"
-                                                                               placeholder="Digite uma descrição"></textarea>
+                    <form action="/tarefa" method="POST" th:object="${tarefa}">
+                        <input type="text" name="title" id="title" placeholder="Digite um titulo *" required=""
+                               style="width: 100%;margin-top: 15px;" th:field="*{title}">
+                        <span th:errorclass="error" th:errors="*{title}"></span>
+                        <textarea class="form-control-lg"
+                                  id="description"
+                                  style="width: 100%;margin-top: 20px;"
+                                  name="description"
+                                  placeholder="Digite uma descrição" th:field="*{description}"></textarea>
                         <br>
-                        <p class="d-inline-block" style="margin: 10PX;">SELECIONE A QUANTIDADE DE PONTOS<br>50-100-150-200
-                        </p><input class="form-range" type="range" name="score" min="50" max="200" step="50"
-                                   style="filter: contrast(93%) hue-rotate(317deg) saturate(49%);">
+                        <span th:errorclass="error" th:errors="*{description}"></span>
+                        <input class="form-range" type="range" name="score" min="50" max="200" step="50"
+                               style="filter: contrast(93%) hue-rotate(317deg) saturate(49%);">
                         <button class="btn btn-success" data-bss-hover-animate="pulse" type="submit"
                                 style="margin: 5px;margin-bottom: 20px;">SALVAR
                         </button>

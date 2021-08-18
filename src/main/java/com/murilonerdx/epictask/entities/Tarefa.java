@@ -52,7 +52,7 @@ public class Tarefa {
 
   private double score;
 
-  @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  @OneToOne(fetch = FetchType.LAZY)
   private Perfil perfil;
 
   @Override

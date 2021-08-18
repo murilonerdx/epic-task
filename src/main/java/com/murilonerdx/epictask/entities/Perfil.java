@@ -26,7 +26,7 @@ public class Perfil {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
-  @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  @OneToOne(fetch = FetchType.LAZY)
   private Usuario user;
   private String linkImage;
   private double score;

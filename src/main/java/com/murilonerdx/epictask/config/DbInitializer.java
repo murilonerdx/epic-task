@@ -39,7 +39,7 @@ public class DbInitializer {
     Tarefa task = new Tarefa(null, "Criar banco de dados Oracle", "Banco de dados com dados populados", LocalDate
         .now(), true,
         StatusTarefa.ANALISE, 0, 150.00, perfil);
-    Tarefa task2 = new Tarefa(null, "Criar modelo no Azure", "Alguma coisa", LocalDate.now().minusDays(5), false,StatusTarefa.ANALISE, 0, 150, null);
+    Tarefa task2 = new Tarefa(null, "Criar modelo no Azure", "Alguma coisa", LocalDate.now().minusDays(5), false,StatusTarefa.ANALISE, 60, 150, null);
     taskRepository.saveAll(Arrays.asList(task, task2));
     return false;
   }
