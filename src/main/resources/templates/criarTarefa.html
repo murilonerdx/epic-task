@@ -42,6 +42,7 @@
                             <h1></h1>
                         </div>
                     </div>
+                    <span style="color: red; font-weight: bolder" th:text="${errors}"></span>
                     <form action="/tarefa" method="POST" th:object="${tarefa}">
                         <input type="text" name="title" id="title" placeholder="Digite um titulo *" required=""
                                style="width: 100%;margin-top: 15px;" th:field="*{title}">

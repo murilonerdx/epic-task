@@ -13,17 +13,12 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class TarefaValidation implements Serializable {
+@Data
+public class TarefaValidation{
   @NotBlank(message="O campo titulo não pode estar vazio")
   @Size(min=10, message="O titulo precisa ter no minimo 10 caracteres")
   private String title;

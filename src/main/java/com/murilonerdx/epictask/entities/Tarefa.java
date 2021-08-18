@@ -3,6 +3,8 @@ package com.murilonerdx.epictask.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.murilonerdx.epictask.entities.enums.StatusTarefa;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -29,7 +31,7 @@ import org.hibernate.validator.constraints.Length;
 @NoArgsConstructor
 @Entity
 @Table(name="tb_tarefa")
-public class Tarefa {
+public class Tarefa implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

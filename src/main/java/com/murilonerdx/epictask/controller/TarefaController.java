@@ -1,25 +1,23 @@
 package com.murilonerdx.epictask.controller;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.murilonerdx.epictask.entities.Tarefa;
-import com.murilonerdx.epictask.entities.enums.StatusTarefa;
 
 import com.murilonerdx.epictask.services.TarefaService;
 import com.murilonerdx.epictask.validations.TarefaValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.config.Task;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -54,6 +52,7 @@ public class TarefaController {
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("criarTarefa");
             mv.addObject("tarefa", tarefaValidation);
+            mv.addObject("errors", result.getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList()));
             return mv;
         }
         service.create(tarefaValidation);
