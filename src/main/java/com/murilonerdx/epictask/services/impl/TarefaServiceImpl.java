@@ -3,6 +3,7 @@ package com.murilonerdx.epictask.services.impl;
 import com.murilonerdx.epictask.entities.Perfil;
 import com.murilonerdx.epictask.entities.Tarefa;
 import com.murilonerdx.epictask.entities.Usuario;
+import com.murilonerdx.epictask.entities.enums.Role;
 import com.murilonerdx.epictask.entities.enums.StatusTarefa;
 import com.murilonerdx.epictask.repository.TarefaRepository;
 import com.murilonerdx.epictask.services.TarefaService;
@@ -49,7 +50,7 @@ public class TarefaServiceImpl implements TarefaService {
     }
 
     public Tarefa toModel(TarefaValidation DTO, Tarefa model){
-        Usuario user = new Usuario(1L, "mu-silva@outlook.com","123");
+        Usuario user = new Usuario(1L, "mu-silva@outlook.com","123", Role.ADMIN);
         Perfil perfil = new Perfil(1L, "Murilo", user,null,200.00);
         model.setDate(LocalDate.now());
         model.setDescription(DTO.getDescription());

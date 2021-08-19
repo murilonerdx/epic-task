@@ -3,6 +3,7 @@ package com.murilonerdx.epictask.config;
 import com.murilonerdx.epictask.entities.Perfil;
 import com.murilonerdx.epictask.entities.Tarefa;
 import com.murilonerdx.epictask.entities.Usuario;
+import com.murilonerdx.epictask.entities.enums.Role;
 import com.murilonerdx.epictask.entities.enums.StatusTarefa;
 import com.murilonerdx.epictask.repository.PerfilRepository;
 import com.murilonerdx.epictask.repository.TarefaRepository;
@@ -31,7 +32,7 @@ public class DbInitializer {
 
   @Bean
   public boolean instantiateDatabase(){
-    Usuario user = new Usuario(null, "mu-silva@outlook.com","123");
+    Usuario user = new Usuario(null, "mu-silva@outlook.com","123", Role.ADMIN);
     userRepository.save(user);
 
     Perfil perfil = new Perfil(null, "Murilo", user,null, 200.00);
