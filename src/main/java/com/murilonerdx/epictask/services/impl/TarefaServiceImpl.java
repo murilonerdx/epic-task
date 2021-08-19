@@ -50,7 +50,7 @@ public class TarefaServiceImpl implements TarefaService {
 
     public Tarefa toModel(TarefaValidation DTO, Tarefa model){
         Usuario user = new Usuario(1L, "mu-silva@outlook.com","123");
-        Perfil perfil = new Perfil(1L, "Murilo", user,new byte[Byte.parseByte("asdopiasdj0912ncasco0na0s0fans0f0i")],200.00);
+        Perfil perfil = new Perfil(1L, "Murilo", user,null,200.00);
         model.setDate(LocalDate.now());
         model.setDescription(DTO.getDescription());
         model.setScore(DTO.getScore());

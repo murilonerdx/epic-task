@@ -34,7 +34,7 @@ public class DbInitializer {
     Usuario user = new Usuario(null, "mu-silva@outlook.com","123");
     userRepository.save(user);
 
-    Perfil perfil = new Perfil(null, "Murilo", user,new byte[Byte.parseByte("asdopiasdj0912ncasco0na0s0fans0f0i")], 200.00);
+    Perfil perfil = new Perfil(null, "Murilo", user,null, 200.00);
     perfilRepository.save(perfil);
     Tarefa task = new Tarefa(null, "Criar banco de dados Oracle", "Banco de dados com dados populados", LocalDate
         .now(), true,
