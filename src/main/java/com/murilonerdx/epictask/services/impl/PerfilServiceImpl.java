@@ -1,6 +1,9 @@
 package com.murilonerdx.epictask.services.impl;
 
 import com.murilonerdx.epictask.entities.Perfil;
+import com.murilonerdx.epictask.entities.Tarefa;
+import com.murilonerdx.epictask.entities.Usuario;
+import com.murilonerdx.epictask.entities.enums.Role;
 import com.murilonerdx.epictask.repository.PerfilRepository;
 import com.murilonerdx.epictask.repository.TarefaRepository;
 import com.murilonerdx.epictask.services.PerfilService;
@@ -41,4 +44,6 @@ public class PerfilServiceImpl implements PerfilService {
     public Perfil create(Perfil perfil) {
         return repository.save(perfil);
     }
+
+
 }

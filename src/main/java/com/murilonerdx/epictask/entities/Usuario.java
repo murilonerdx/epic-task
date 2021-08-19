@@ -23,4 +23,14 @@ public class Usuario {
   private String password;
   @Enumerated(value=EnumType.STRING)
   private Role role;
+
+  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+  private Perfil perfil;
+
+  public Usuario(Long id, String email, String password, Role role){
+    this.id = id;
+    this.email = email;
+    this.password = password;
+    this.role = role;
+  }
 }

@@ -50,8 +50,8 @@ public class TarefaServiceImpl implements TarefaService {
     }
 
     public Tarefa toModel(TarefaValidation DTO, Tarefa model){
-        Usuario user = new Usuario(1L, "mu-silva@outlook.com","123", Role.ADMIN);
-        Perfil perfil = new Perfil(1L, "Murilo", user,null,200.00);
+        Perfil perfil = new Perfil(1L, "Murilo",null,200.00);
+        Usuario user = new Usuario(1L, "mu-silva@outlook.com","123", Role.ADMIN, perfil);
         model.setDate(LocalDate.now());
         model.setDescription(DTO.getDescription());
         model.setScore(DTO.getScore());

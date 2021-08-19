@@ -20,8 +20,7 @@ public class Perfil {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
-  @OneToOne(fetch = FetchType.LAZY)
-  private Usuario user;
+
 
   @Lob
   private byte[] data;

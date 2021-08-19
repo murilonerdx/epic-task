@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Cadastrar Perfil</title>
     <link rel="stylesheet" href="../static/fonts/fontawesome-all.min.css" th:href="@{/fonts/fontawesome-all.min.css}">
     <link rel="stylesheet" href="../static/css/Contact-Form-Clean.css" th:href="@{/css/Contact-Form-Clean.css}">
@@ -49,20 +50,20 @@
                     <!-- Start: Error Example -->
                     <div class="mb-3"><input class="form-control is-invalid" type="email" name="email"
                                              placeholder="Email"><!-- Start: The Error Message --><small
-                            class="form-text text-danger">Please enter a correct email address.</small>
+                            class="form-text text-danger">Please enter a email address.</small>
                         <!-- End: The Error Message -->
                     </div><!-- End: Error Example -->
                     <div class="mb-3">
                         <!-- Start: Error Example -->
                         <div class="mb-3"><input class="form-control is-invalid" type="password" name="password"
                                                  placeholder="Senha" required><!-- Start: The Error Message --><small
-                                class="form-text text-danger">Please enter a password</small>
+                                class="form-text text-danger">Please enter a password.</small>
                             <!-- End: The Error Message -->
                         </div><!-- End: Error Example -->
                         <!-- Start: Custom File Upload -->
                         <div style="width: 200px;">
                             <input class="form-control custom-file-input" type="file"
-                                   id="user_group_logo" accept="image/png"
+                                   id="user_group_logo" accept="image/jpg"
                                    name="photo"
                                    style="width: 280px;margin: 4px;height: 38px;">
                             <div class="text-center">
@@ -79,25 +80,10 @@
         </div><!-- End: Intro -->
         <!-- Start: People -->
         <div class="row people">
-            <div class="col-md-6 col-lg-4 item">
-                <div class="box"><img class="rounded-circle" src="../static/img/1.jpg" th:src="@{/img/1.jpg}">
-                    <h3 class="name">Ben Johnson</h3>
-                    <p class="title">150pts</p>
-                    <p class="description">mu-silva@outlook.com</p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 item">
-                <div class="box"><img class="rounded-circle" src="../static/img/2.jpg" th:src="@{/img/2.jpg}">
-                    <h3 class="name">Emily Clark</h3>
-                    <p class="title">200pts</p>
-                    <p class="description">mu-silva@outlook.com</p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 item">
-                <div class="box"><img class="rounded-circle" src="../static/img/3.jpg" th:src="@{/img/3.jpg}">
-                    <h3 class="name">Carl Kent</h3>
-                    <p class="title">310pts</p>
-                    <p class="description">mu-silva@outlook.com</p>
+            <div class="col-md-6 col-lg-4 item" th:each=" perfil : ${perfis}">
+                <div class="box"><img class="rounded-circle" src="../static/img/1.jpg" th:src="@{*{perfil.getKey()}}"/>
+                    <h3 class="name" th:text="${perfil.getValue().getName()}">Ben Johnson</h3>
+                    <p class="title" th:text="${perfil.getValue().getScore()}">150pts</p>
                 </div>
             </div>
         </div><!-- End: People -->

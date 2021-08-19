@@ -32,11 +32,11 @@ public class DbInitializer {
 
   @Bean
   public boolean instantiateDatabase(){
-    Usuario user = new Usuario(null, "mu-silva@outlook.com","123", Role.ADMIN);
+
+    Perfil perfil = new Perfil(null, "Murilo",new byte[1024], 200.00);
+    Usuario user = new Usuario(null, "mu-silva@outlook.com","123", Role.ADMIN, perfil);
     userRepository.save(user);
 
-    Perfil perfil = new Perfil(null, "Murilo", user,null, 200.00);
-    perfilRepository.save(perfil);
     Tarefa task = new Tarefa(null, "Criar banco de dados Oracle", "Banco de dados com dados populados", LocalDate
         .now(), true,
         StatusTarefa.ANALISE, 0, 150.00, perfil);
