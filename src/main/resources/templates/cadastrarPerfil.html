@@ -83,7 +83,7 @@
             <div class="col-md-6 col-lg-4 item" th:each=" perfil : ${perfis}">
                 <div class="box"><img class="rounded-circle" src="../static/img/1.jpg" th:src="@{*{perfil.getKey()}}"/>
                     <h3 class="name" th:text="${perfil.getValue().getName()}">Ben Johnson</h3>
-                    <p class="title" th:text="${perfil.getValue().getScore()}">150pts</p>
+                    <p class="title" th:text="${perfil.getValue().getScore()} + PTS">150pts</p>
                 </div>
             </div>
         </div><!-- End: People -->
