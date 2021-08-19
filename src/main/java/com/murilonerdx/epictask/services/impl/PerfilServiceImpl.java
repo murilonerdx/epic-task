@@ -7,9 +7,11 @@ import com.murilonerdx.epictask.services.PerfilService;
 import com.murilonerdx.epictask.services.TarefaService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PerfilServiceImpl implements PerfilService {
 

@@ -42,9 +42,9 @@
         <div class="intro">
             <h2 class="text-center">CADASTRAR UM LIDER</h2><!-- Start: Contact Form Clean -->
             <section class="contact-clean">
-                <form method="post">
+                <form action="/perfil/cadastrarPerfil" method="POST" th:object="${perfil}" enctype="multipart/form-data">
                     <h2 class="text-center">EPIC TASK&nbsp;</h2><!-- Start: Success Example -->
-                    <div class="mb-3"><input class="form-control" type="text" name="name" placeholder="Name"></div>
+                    <div class="mb-3"><input class="form-control" type="text" name="name" placeholder="Name" th:field="*{name}"></div>
                     <!-- End: Success Example -->
                     <!-- Start: Error Example -->
                     <div class="mb-3"><input class="form-control is-invalid" type="email" name="email"
@@ -54,26 +54,24 @@
                     </div><!-- End: Error Example -->
                     <div class="mb-3">
                         <!-- Start: Error Example -->
-                        <div class="mb-3"><input class="form-control is-invalid" type="email" name="email"
-                                                 placeholder="Senha"><!-- Start: The Error Message --><small
+                        <div class="mb-3"><input class="form-control is-invalid" type="password" name="password"
+                                                 placeholder="Senha" required><!-- Start: The Error Message --><small
                                 class="form-text text-danger">Please enter a password</small>
                             <!-- End: The Error Message -->
                         </div><!-- End: Error Example -->
                         <!-- Start: Custom File Upload -->
-                        <form>
-                            <div style="width: 200px;">
-                                <input class="form-control custom-file-input" type="file"
-                                                              id="user_group_logo" accept="image/*"
-                                                              name="user_group_logo"
-                                                              style="width: 280px;margin: 4px;height: 38px;">
-                                <div class="text-center">
-                                    <label class="form-label" id="user_group_label"
-                                                                for="user_group_logo"><i class="fas fa-upload"></i>&nbsp;Choose
+                        <div style="width: 200px;">
+                            <input class="form-control custom-file-input" type="file"
+                                   id="user_group_logo" accept="image/png"
+                                   name="photo"
+                                   style="width: 280px;margin: 4px;height: 38px;">
+                            <div class="text-center">
+                                <label class="form-label" id="user_group_label"
+                                       for="user_group_logo"><i class="fas fa-upload"></i>&nbsp;Choose
                                     an image...</label></div>
-                                <div class="text-center mt-2"></div>
-                            </div>
-                            <button class="btn btn-primary" type="submit">CADASTRAR</button>
-                        </form><!-- End: Custom File Upload -->
+                            <div class="text-center mt-2"></div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">CADASTRAR</button>
                     </div>
                     <div class="mb-3"></div>
                 </form>
