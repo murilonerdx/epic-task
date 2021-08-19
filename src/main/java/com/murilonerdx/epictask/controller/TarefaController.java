@@ -1,5 +1,6 @@
 package com.murilonerdx.epictask.controller;
 
+import com.murilonerdx.epictask.entities.Perfil;
 import com.murilonerdx.epictask.entities.Tarefa;
 
 import com.murilonerdx.epictask.services.TarefaService;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
 public class TarefaController {
 
     TarefaService service;
+
 
     @Autowired
     public TarefaController(TarefaService service) {
@@ -64,5 +67,6 @@ public class TarefaController {
         mv.addObject("tarefas", service.getAll());
         return mv;
     }
+
 
 }
