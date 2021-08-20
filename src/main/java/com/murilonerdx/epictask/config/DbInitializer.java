@@ -32,7 +32,7 @@ public class DbInitializer {
   @Bean
   public boolean instantiateDatabase(){
 
-    Perfil perfil = new Perfil(null, "Murilo",new byte[1024], 200.00);
+    Perfil perfil = new Perfil(null, "Murilo",null, 200.00);
     Usuario user = new Usuario(null, "mu-silva@outlook.com","123", Role.ADMIN, perfil);
     userRepository.save(user);
 

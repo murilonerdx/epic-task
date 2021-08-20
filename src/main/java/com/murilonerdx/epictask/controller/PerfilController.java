@@ -7,10 +7,7 @@ import com.murilonerdx.epictask.services.impl.PerfilServiceImpl;
 import com.murilonerdx.epictask.services.impl.TarefaServiceImpl;
 import com.murilonerdx.epictask.services.impl.UsuarioServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,9 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.activation.FileTypeMap;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.HashMap;
@@ -29,11 +24,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static java.lang.System.in;
-
+@SuppressWarnings("ALL")
 @Controller
 @RequiredArgsConstructor
 public class PerfilController {
+
+    static final String PATH_LOCAL_IMG = "src/main/resources/static/img/";
+    static final String SUFFIX_IMG = ".jpg";
 
     PerfilServiceImpl perfilService;
     TarefaServiceImpl tarefaService;
@@ -55,8 +52,8 @@ public class PerfilController {
     @RequestMapping(value = "/perfil/cadastrarPerfil", method = RequestMethod.POST)
     public ModelAndView save(@Valid Perfil perfil,
                              @RequestParam("photo") MultipartFile photo, @RequestParam("email") String email, @RequestParam("password") String password) throws IOException {
-        //Mockado
-        if (perfil != null && password != null && email != null) {
+        Usuario existUsuario = usuarioService.findByEmail(email);
+        if (perfil != null && password != null && email != null && existUsuario == null) {
             perfil.setData(photo.getBytes());
             Usuario usuario = usuarioService.create(new Usuario(null, email, password, Role.ADMIN, perfil));
             usuarioService.create(usuario);
@@ -69,12 +66,12 @@ public class PerfilController {
     @RequestMapping(value = "/perfil/cadastrarPerfil", method = RequestMethod.GET)
     public ModelAndView tarefasPendentes(Perfil perfil) throws IOException {
         Map<String, Perfil> mapeamento = new HashMap<>();
-        File index = new File("src/main/resources/static/img/");
+        File index = new File(PATH_LOCAL_IMG);
         ModelAndView mv = new ModelAndView("cadastrarPerfil");
         List<Usuario> usuarios = usuarioService.findByRole(Role.ADMIN);
 
-        /** Deletar todos as imagens toda vez que chamar o endpoint
-         * Percorrer a pasta e deletar um por um*/
+        /* Deletar todos as imagens toda vez que chamar o endpoint
+          Percorrer a pasta e deletar um por um*/
         verifyIfExistsImgs(index);
         createMapAndImgPushView(mapeamento, index, usuarios);
 
@@ -87,18 +84,17 @@ public class PerfilController {
 
     @RequestMapping(value="/download/{linkImage}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
     public ResponseEntity<byte[]> testphoto(@PathVariable("linkImage") String imagem) throws IOException {
-
-        File file = new File("src/main/resources/static/img/"+imagem);
-
+        File file = new File(PATH_LOCAL_IMG+imagem);
         return ResponseEntity.ok()
                 .header("Content-Disposition", "attachment; filename=" +file.getName())
                 .contentType(MediaType.valueOf(FileTypeMap.getDefaultFileTypeMap().getContentType(file)))
                 .body(Files.readAllBytes(file.toPath()));
     }
 
+    //Mostrar imagem
     @RequestMapping(value="/img/{linkImage}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
     public ResponseEntity<byte[]> getImage(@PathVariable("linkImage") String imagem) throws IOException{
-        File img = new File("src/main/resources/static/img/"+imagem);
+        File img = new File(PATH_LOCAL_IMG+imagem);
         return ResponseEntity.ok().contentType(MediaType.valueOf(FileTypeMap.getDefaultFileTypeMap().getContentType(img))).body(Files.readAllBytes(img.toPath()));
     }
 
@@ -106,7 +102,7 @@ public class PerfilController {
         for (Usuario usuario : usuarios) {
             if (usuario.getPerfil().getData() != null) {
                 String namespaceURI = usuario.getPerfil().getName().trim();
-                File temp = File.createTempFile(namespaceURI, ".jpg", index);
+                File temp = File.createTempFile(namespaceURI, SUFFIX_IMG, index);
                 mapeamento.put(temp.getName(), usuario.getPerfil());
                 writesImageInTemp(usuario, temp);
             }
