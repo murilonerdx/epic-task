@@ -27,7 +27,6 @@ import org.springframework.context.annotation.Profile;
 public class DbInitializer {
 
   private final UsuarioRepository userRepository;
-  private final PerfilRepository perfilRepository;
   private final TarefaRepository taskRepository;
 
   @Bean
