@@ -45,17 +45,18 @@
             <section class="contact-clean">
                 <form action="/perfil/cadastrarPerfil" method="POST" th:object="${perfil}" enctype="multipart/form-data">
                     <h2 class="text-center">EPIC TASK&nbsp;</h2><!-- Start: Success Example -->
+
                     <div class="mb-3"><input class="form-control" type="text" name="name" placeholder="Name" th:field="*{name}"></div>
                     <!-- End: Success Example -->
                     <!-- Start: Error Example -->
-                    <div class="mb-3"><input class="form-control is-invalid" type="email" name="email"
-                                             placeholder="Email"><!-- Start: The Error Message --><small
-                            class="form-text text-danger">Please enter a email address.</small>
+                    <div class="mb-3"><input class="form-control" type="email" name="email"
+                                             placeholder="Email"><!-- Start: The Error Message -->
+                        <span class="form-text text-danger" th:if="${errors != null}" th:text="${errors}"></span>
                         <!-- End: The Error Message -->
                     </div><!-- End: Error Example -->
                     <div class="mb-3">
                         <!-- Start: Error Example -->
-                        <div class="mb-3"><input class="form-control is-invalid" type="password" name="password"
+                        <div class="mb-3"><input class="form-control" type="password" name="password"
                                                  placeholder="Senha" required><!-- Start: The Error Message --><small
                                 class="form-text text-danger">Please enter a password.</small>
                             <!-- End: The Error Message -->
