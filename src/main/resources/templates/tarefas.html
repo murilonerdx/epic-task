@@ -69,8 +69,33 @@
             </div>
         </div>
         <button class="btn btn-warning" type="button" style="margin: 20px;">Desistir da tarefa</button>
+        <button class="btn btn-primary" type="button" style="margin: 20px;">Definir status da tarefa</button>
     </div>
 </div>
+
+<nav aria-label="Pagination" th:if="${tarefas.totalPages gt 0}">
+    <ul class="pagination justify-content-center font-weight-bold">
+        <li class="page-item" th:classappend="${tarefas.number eq 0} ? 'disabled'">
+            <a class="page-link"
+               th:href="@{/tarefa/?page={id}(id=${tarefas.number lt 2 ? 1 : tarefas.number})}"
+               aria-label="Previous" title="Previous Page" data-toggle="tooltip">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="page-item" th:classappend="${i eq tarefas.number + 1} ? 'active'"
+            th:each="i : ${#numbers.sequence( 1, tarefas.totalPages, 1)}">
+            <a class="page-link" th:href="@{/tarefa/?page={id}(id=${i})}" th:text="${i}"
+               th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+        </li>
+        <li class="page-item" th:classappend="${tarefas.number + 1 eq tarefas.totalPages} ? 'disabled'">
+            <a class="page-link"
+               th:href="@{/?page={id}(id=${tarefas.number + 2})}"
+               aria-label="Next" title="Next Page" data-toggle="tooltip">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
 <script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
 <script src="../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
 <script src="../static/js/bs-init.js" th:src="@{/js/bs-init.js}"></script>

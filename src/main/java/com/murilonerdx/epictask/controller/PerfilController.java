@@ -66,9 +66,8 @@ public class PerfilController {
             usuarioService.create(usuario);
             return new ModelAndView("tarefas").addObject("tarefas", tarefaService.getAll());
         }
-        md.addObject("errors", "Email já cadastrado no banco de dados");
+        md.addObject("errors", "Email/Invalido já existe no banco de dados");
         return md;
-
     }
 
     @RequestMapping(value = "/perfil/cadastrarPerfil", method = RequestMethod.GET)

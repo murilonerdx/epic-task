@@ -11,6 +11,8 @@ import com.murilonerdx.epictask.validations.TarefaValidation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -47,6 +49,11 @@ public class TarefaServiceImpl implements TarefaService {
         Tarefa tarefa = toModel(tarefaValidation, new Tarefa());
 
         return repository.save(tarefa);
+    }
+
+    @Override
+    public Page<Tarefa> searchPaginetedTarefas(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public Tarefa toModel(TarefaValidation DTO, Tarefa model){
