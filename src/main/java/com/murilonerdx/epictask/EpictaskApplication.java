@@ -14,8 +14,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @SpringBootApplication()
 @EnableWebMvc
 @Configuration
-@EnableAutoConfiguration
-@EnableAdminServer
 public class EpictaskApplication {
 
   public static void main(String[] args) {
