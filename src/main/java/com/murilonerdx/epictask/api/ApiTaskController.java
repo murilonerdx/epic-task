@@ -2,6 +2,8 @@ package com.murilonerdx.epictask.api;
 
 import com.murilonerdx.epictask.entities.Tarefa;
 import com.murilonerdx.epictask.repository.TarefaRepository;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,12 +20,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/task")
+@Api(tags="Endpoint de tarefas")
 public class ApiTaskController {
 
     @Autowired
     private TarefaRepository repository;
 
     @GetMapping
+    @ApiOperation(value = "Buscando por paginação")
     @Cacheable("tasks")
     public Page<Tarefa> index(
             @RequestParam(required = false) String title, @PageableDefault(size = 5) Pageable pageable) {
@@ -33,6 +37,7 @@ public class ApiTaskController {
     }
 
     @PostMapping()
+    @ApiOperation(value = "Criando uma tarefa")
     @CacheEvict(value = "tasks", allEntries = true)
     public ResponseEntity<Tarefa> create(
             @RequestBody @Valid Tarefa tarefa, UriComponentsBuilder uriBuilder
@@ -46,11 +51,13 @@ public class ApiTaskController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation(value = "Buscar tarefa por id")
     public ResponseEntity<Tarefa> detail(@PathVariable Long id) {
         return ResponseEntity.of(repository.findById(id));
     }
 
     @DeleteMapping
+    @ApiOperation(value = "Deletar tarefa por id")
     public ResponseEntity<Tarefa> delete(@PathVariable Long id) {
         Optional<Tarefa> task = repository.findById(id);
         if (task.isEmpty())
@@ -61,6 +68,7 @@ public class ApiTaskController {
     }
 
     @PutMapping("/{id}")
+    @ApiOperation(value = "Atualizando tarefa por id")
     @CacheEvict(value = "tasks", allEntries = true)
     public ResponseEntity<Tarefa> update(
             @PathVariable Long id,
