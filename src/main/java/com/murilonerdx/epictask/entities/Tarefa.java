@@ -16,6 +16,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,10 +39,12 @@ public class Tarefa implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Length(min=10, max=8000)
+  @NotBlank(message="O campo titulo não pode estar vazio")
+  @Size(min=5, message="O titulo precisa ter no minimo 10 caracteres")
   private String title;
 
-  @Length(max=8000)
+  @NotBlank(message="O campo descrição não pode estar vazio")
+  @Size(max=8000, message="A descrição precisa ter no minimo 20 caracteres")
   private String description;
 
   @JsonFormat(pattern = "dd/MM/yyyy")
@@ -54,7 +59,7 @@ public class Tarefa implements Serializable {
 
   private double score;
 
-  @OneToOne(fetch = FetchType.LAZY)
+  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
   private Perfil perfil;
 
   @Override

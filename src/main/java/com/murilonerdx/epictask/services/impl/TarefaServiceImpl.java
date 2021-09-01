@@ -7,10 +7,8 @@ import com.murilonerdx.epictask.entities.enums.Role;
 import com.murilonerdx.epictask.entities.enums.StatusTarefa;
 import com.murilonerdx.epictask.repository.TarefaRepository;
 import com.murilonerdx.epictask.services.TarefaService;
-import com.murilonerdx.epictask.validations.TarefaValidation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -45,10 +43,16 @@ public class TarefaServiceImpl implements TarefaService {
     }
 
     @Override
-    public Tarefa create(TarefaValidation tarefaValidation) {
-        Tarefa tarefa = toModel(tarefaValidation, new Tarefa());
+    public Tarefa create(Tarefa tarefa) {
+        Tarefa createTarefa = toModel(tarefa, new Tarefa());
 
         return repository.save(tarefa);
+    }
+
+    @Override
+    public Tarefa findByTitleAndPerfil(String title, Perfil perfil){
+        perfil = new Perfil(null, "Murilo",null, 200.00);
+        return repository.findByTitleAndPerfil(title, perfil);
     }
 
     @Override
@@ -56,13 +60,13 @@ public class TarefaServiceImpl implements TarefaService {
         return repository.findAll(pageable);
     }
 
-    public Tarefa toModel(TarefaValidation DTO, Tarefa model){
+    public Tarefa toModel(Tarefa tarefa, Tarefa model){
         Perfil perfil = new Perfil(1L, "Murilo",null,200.00);
         Usuario user = new Usuario(1L, "mu-silva@outlook.com","123", Role.ADMIN, perfil);
         model.setDate(LocalDate.now());
-        model.setDescription(DTO.getDescription());
-        model.setScore(DTO.getScore());
-        model.setTitle(DTO.getTitle());
+        model.setDescription(tarefa.getDescription());
+        model.setScore(tarefa.getScore());
+        model.setTitle(tarefa.getTitle());
         model.setPerfil(perfil);
         model.setObtain(true);
         model.setProgress(0);

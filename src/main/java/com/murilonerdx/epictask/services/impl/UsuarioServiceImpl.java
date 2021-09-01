@@ -4,7 +4,6 @@ import com.murilonerdx.epictask.entities.Usuario;
 import com.murilonerdx.epictask.entities.enums.Role;
 import com.murilonerdx.epictask.repository.UsuarioRepository;
 import com.murilonerdx.epictask.services.UsuarioService;
-import com.murilonerdx.epictask.validations.TarefaValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,6 @@
 package com.murilonerdx.epictask.services;
 
 import com.murilonerdx.epictask.entities.Perfil;
-import com.murilonerdx.epictask.entities.Tarefa;
-import com.murilonerdx.epictask.validations.TarefaValidation;
 
 import java.util.List;
 

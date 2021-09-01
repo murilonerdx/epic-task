@@ -1,7 +1,7 @@
 package com.murilonerdx.epictask.services;
 
+import com.murilonerdx.epictask.entities.Perfil;
 import com.murilonerdx.epictask.entities.Tarefa;
-import com.murilonerdx.epictask.validations.TarefaValidation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,6 +12,7 @@ public interface TarefaService {
     Tarefa getById(Long id);
     Tarefa update(Tarefa tarefa, Long id);
     void deleteById(Long id);
-    Tarefa create(TarefaValidation tarefaValidation);
+    Tarefa create(Tarefa tarefa);
     Page<Tarefa> searchPaginetedTarefas(Pageable pageable);
+    Tarefa findByTitleAndPerfil(String title, Perfil perfil);
 }
