@@ -25,6 +25,7 @@
                     <div>
                         <h3 id="heading">Log in:</h3>
                     </div>
+                    <span class="form-text text-danger" th:if="${errorValid != null}" th:text="${errorValid}"></span>
                     <input class="form-control" type="text" id="input" placeholder="Email *" required th:field="*{email}">
                     <input class="form-control" type="password" id="input" placeholder="Password *" required th:field="*{password}">
                     <button class="btn btn-primary" id="button" style="background-color:#007ac9;" type="submit">Log in</button>
