@@ -33,9 +33,11 @@ public class CadastroController {
         if (result.hasErrors() || verifyExist != null){
             model.addAttribute("emailExist", "O email já está cadastrado");
             return "cadastrar";
+        }else if(usuario.getPassword().length() < 8){
+            model.addAttribute("passwordValid", "A senha deve ser maior que 8");
+            return "cadastrar";
         }else{
             byte[] imageByteDefault = returnBytesDefault();
-
             usuario.setRole(Role.USER);
             usuario.getPerfil().setData(imageByteDefault);
             service.create(usuario);

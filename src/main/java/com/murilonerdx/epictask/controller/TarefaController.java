@@ -54,8 +54,9 @@ public class TarefaController {
             mv.addObject("errors", result.getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList()));
             return mv;
         }
+        tarefaValidation.setProgress(0);
         service.create(tarefaValidation);
-        return new ModelAndView("tarefas").addObject("tarefas", service.getAll());
+        return new ModelAndView("tarefas").addObject("tarefas", service.searchPaginetedTarefas(PageRequest.of(0, 5)));
     }
 
 //    @PostMapping("/tarefa/desistirTarefa")

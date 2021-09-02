@@ -44,7 +44,7 @@ public class Tarefa implements Serializable {
   private String title;
 
   @NotBlank(message="O campo descrição não pode estar vazio")
-  @Size(max=8000, message="A descrição precisa ter no minimo 20 caracteres")
+  @Size(min=10, max=8000, message="A descrição precisa ter no minimo 20 caracteres")
   private String description;
 
   @JsonFormat(pattern = "dd/MM/yyyy")
