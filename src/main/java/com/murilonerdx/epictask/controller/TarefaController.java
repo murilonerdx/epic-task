@@ -30,23 +30,23 @@ public class TarefaController {
         this.service = service;
     }
 
-    @GetMapping("/tarefa")
+    @GetMapping("/")
     public String tarefasPendentes(HttpServletRequest request, Model model) {
         getModelAndView(request, model);
         return "tarefas";
     }
 
-    @GetMapping(value = "/tarefa/criarTarefa")
+    @GetMapping(value = "/criarTarefa")
     public String criarTarefa(Tarefa tarefa) {
         return "criarTarefa";
     }
 
-    @GetMapping(value = "/tarefa/concluidas")
+    @GetMapping(value = "/concluidas")
     public String tarefasConcluida() {
         return "concluidas";
     }
 
-    @PostMapping("/tarefa")
+    @PostMapping("/")
     public ModelAndView listaSalvas(@Valid Tarefa tarefaValidation, BindingResult result) {
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("criarTarefa");
@@ -68,7 +68,7 @@ public class TarefaController {
 //        return "tarefas";
 //    }
 
-    private Model getModelAndView(HttpServletRequest request, Model mv) {
+    public Model getModelAndView(HttpServletRequest request, Model mv) {
         int page = 0, size =5;
 
         if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {

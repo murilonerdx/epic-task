@@ -18,18 +18,27 @@
 
 <body>
     <div id="login-one" class="login-one">
-        <form class="login-one-form">
+        <form class="login-one-form" action="/cadastrar" method="POST" th:object="${usuario}">
             <div class="col">
                 <div class="login-one-ico"><i class="fa fa-anchor"></i></div>
                 <div class="form-group mb-3">
                     <div>
                         <h3 id="heading">Cadastrar:</h3>
                     </div>
-                    <input class="form-control" type="text" id="input" name="email" placeholder="Digite um email *" required>
-                    <input class="form-control" type="password" id="input" placeholder="Digite uma senha *" required>
-                    <input class="form-control" type="text" id="input" placeholder="Digite seu nome *" required>
-                    <input class="form-control" type="text" id="input" placeholder="Coloque o link img do seu perfil *" required>
-                    <button class="btn btn-primary" id="button" style="background-color:#007ac9;" type="submit">Cadastrar</button>
+
+                    <div class="form-group">
+                        <input class="form-control" type="text" id="input" name="email" placeholder="Digite um email *" th:field="*{email}" required/>
+                        <span class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                        <span class="form-text text-danger" th:if="${emailExist != null}" th:text="${emailExist}"></span>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" id="input" placeholder="Digite uma senha *" th:field="*{password}" required/>
+                        <span class="form-text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" id="input" placeholder="Digite seu nome *" th:field="*{perfil.name}" required/>
+                        <button class="btn btn-primary" id="button" style="background-color:#007ac9;" type="submit">Cadastrar</button>
+                   </div>
                     <a href="/login" style="text-decoration: none;">Já tenho uma Login ? Acessar</a>
                 </div>
             </div>

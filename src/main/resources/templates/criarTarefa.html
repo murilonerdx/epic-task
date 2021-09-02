@@ -22,7 +22,7 @@
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link" href="/">Pendentes</a></li>
-                <li class="nav-item"><a class="nav-link" href="/tarefa/concluidas">Concluidas</a></li>
+                <li class="nav-item"><a class="nav-link" href="/concluidas">Concluidas</a></li>
                 <li class="nav-item"><a class="nav-link" href="/perfil/cadastrarPerfil">Cadastrar Perfil</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Rankings</a></li>
             </ul>
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <span style="color: red; font-weight: bolder" th:text="${errors}"></span>
-                    <form action="/tarefa" method="POST" th:object="${tarefa}">
+                    <form action="/" method="POST" th:object="${tarefa}">
                         <input type="text" name="title" id="title" placeholder="Digite um titulo *" required=""
                                style="width: 100%;margin-top: 15px;" th:field="*{title}">
                         <span th:errorclass="error" th:errors="*{title}"></span>
@@ -61,7 +61,7 @@
                                 style="margin: 5px;margin-bottom: 20px;">SALVAR
                         </button>
                         <a class="btn btn-light" data-bss-hover-animate="pulse" type="button"
-                           style="margin: 5px;margin-bottom: 20px;" href="/tarefa">CANCELAR</a>
+                           style="margin: 5px;margin-bottom: 20px;" href="/">CANCELAR</a>
                     </form>
                 </div>
             </div>

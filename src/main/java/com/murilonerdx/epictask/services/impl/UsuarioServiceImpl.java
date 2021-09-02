@@ -21,8 +21,8 @@ public class UsuarioServiceImpl implements UsuarioService {
         return repository.save(usuario);
     }
 
-    public List<Usuario> findByRole(Role role){
-        return repository.findByRole(role);
+    public List<Usuario> findByRole(){
+        return repository.findByRole();
     }
 
     public Usuario findByEmail(String email){

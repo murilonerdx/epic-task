@@ -19,10 +19,13 @@ public abstract class ImageTransform {
             if (usuario.getPerfil().getData() != null) {
                 String namespaceURI = usuario.getPerfil().getName().trim();
                 File temp = File.createTempFile(namespaceURI, SUFFIX_IMG, index);
-                mapeamento.put(temp.getName(), usuario.getPerfil());
                 writesImageInTemp(usuario, temp);
+                mapeamento.put(temp.getName(), usuario.getPerfil());
+            }else{
+                mapeamento.put("../show/perfil.jpg", usuario.getPerfil());
             }
         }
+
     }
 
     public static void verifyIfExistsImgs(File index) {

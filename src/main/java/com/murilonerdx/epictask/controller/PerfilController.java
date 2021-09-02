@@ -8,9 +8,12 @@ import com.murilonerdx.epictask.services.impl.TarefaServiceImpl;
 import com.murilonerdx.epictask.services.impl.UsuarioServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,14 +60,18 @@ public class PerfilController {
 
     @RequestMapping(value = "/perfil/cadastrarPerfil", method = RequestMethod.POST)
     public ModelAndView save(@Valid Perfil perfil,
-                             @RequestParam("photo") MultipartFile photo, @RequestParam("email") String email, @RequestParam("password") String password) throws IOException {
+                             @RequestParam("photo") MultipartFile photo,
+                             @RequestParam("email") String email,
+                             @RequestParam("password") String password,
+                             BindingResult result,
+                             Model model) throws IOException {
         ModelAndView md = new ModelAndView("cadastrarPerfil");
         Usuario existUsuario = usuarioService.findByEmail(email);
-        if (perfil != null && password != null && email != null && existUsuario == null) {
+        if (perfil != null && existUsuario == null) {
             perfil.setData(photo.getBytes());
             Usuario usuario = usuarioService.create(new Usuario(null, email, password, Role.ADMIN, perfil));
             usuarioService.create(usuario);
-            return new ModelAndView("tarefas").addObject("tarefas", tarefaService.getAll());
+            return new ModelAndView("tarefas").addObject("tarefas", tarefaService.searchPaginetedTarefas(PageRequest.of(0, 5)));
         }
         md.addObject("errors", "Email/Invalido já existe no banco de dados");
         return md;
@@ -75,7 +82,7 @@ public class PerfilController {
         Map<String, Perfil> mapeamento = new HashMap<>();
         File index = new File(PATH_LOCAL_IMG);
         ModelAndView mv = new ModelAndView("cadastrarPerfil");
-        List<Usuario> usuarios = usuarioService.findByRole(Role.ADMIN);
+        List<Usuario> usuarios = usuarioService.findByRole();
 
         /* Deletar todos as imagens toda vez que chamar o endpoint
           Percorrer a pasta e deletar um por um*/
@@ -86,6 +93,8 @@ public class PerfilController {
             mv.addObject("perfis", mapeamento);
             return mv;
         }
+
+        mv.addObject("perfil",mapeamento );
         return mv;
     }
 

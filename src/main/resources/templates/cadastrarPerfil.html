@@ -20,11 +20,11 @@
 <body>
 <div class="row">
     <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
-        <div class="container"><a class="navbar-brand" href="/tarefa">EPIC TASK</a>
+        <div class="container"><a class="navbar-brand" href="/">EPIC TASK</a>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="/tarefa">Pendentes</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/tarefa/concluidas">Concluidas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/">Pendentes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/concluidas">Concluidas</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Cadastrar Perfil</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Rankings</a></li>
                 </ul>
@@ -46,19 +46,21 @@
                 <form action="/perfil/cadastrarPerfil" method="POST" th:object="${perfil}" enctype="multipart/form-data">
                     <h2 class="text-center">EPIC TASK&nbsp;</h2><!-- Start: Success Example -->
 
-                    <div class="mb-3"><input class="form-control" type="text" name="name" placeholder="Name" th:field="*{name}"></div>
+                    <div class="mb-3"><input class="form-control" type="text" name="name" placeholder="Name" th:field="*{name}" required></div>
                     <!-- End: Success Example -->
                     <!-- Start: Error Example -->
                     <div class="mb-3"><input class="form-control" type="email" name="email"
                                              placeholder="Email"><!-- Start: The Error Message -->
-                        <span class="form-text text-danger" th:if="${errors != null}" th:text="${errors}"></span>
+                        <span class="form-text text-danger" th:if="${errors != null}" th:text="${errors}" required></span>
                         <!-- End: The Error Message -->
                     </div><!-- End: Error Example -->
                     <div class="mb-3">
                         <!-- Start: Error Example -->
                         <div class="mb-3"><input class="form-control" type="password" name="password"
-                                                 placeholder="Senha" required><!-- Start: The Error Message --><small
-                                class="form-text text-danger">Please enter a password.</small>
+                                                 placeholder="Senha" required><!-- Start: The Error Message -->
+
+                            <small
+                                class="form-text text-danger" th:if="${errors != null}">Please enter a password.</small>
                             <!-- End: The Error Message -->
                         </div><!-- End: Error Example -->
                         <!-- Start: Custom File Upload -->
@@ -84,6 +86,7 @@
             <div class="col-md-6 col-lg-4 item" th:each=" perfil : ${perfis}">
                 <div class="box">
                     <img class="rounded-circle" th:src="@{/img/{linkImage}(linkImage=${perfil.getKey()})}"  width="160" height="160" alt="foto perfil" th:if="${perfil.getValue().getData() != null}"/>
+                    <img class="rounded-circle" th:src="@{/show/perfil.jpg}"  width="160" height="160" alt="foto perfil" th:if="${perfil.getValue().getData() == null}"/>
                     <h3 class="name" th:text="${perfil.getValue().getName()}">Ben Johnson</h3>
                     <p class="title" th:text="${perfil.getValue().getScore()} + PTS">150pts</p>
                 </div>
