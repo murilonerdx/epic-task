@@ -44,7 +44,7 @@
             <h2 class="text-center">CADASTRAR UM LIDER</h2><!-- Start: Contact Form Clean -->
             <section class="contact-clean">
                 <form action="/perfil/cadastrarPerfil" method="POST" th:object="${perfil}" enctype="multipart/form-data">
-
+                    <span class="form-text text-danger" th:if="${fieldsInvalid != null}" th:text="${fieldsInvalid}" required></span>
                     <h2 class="text-center">EPIC TASK&nbsp;</h2><!-- Start: Success Example -->
 
                     <div class="mb-3"><input class="form-control" type="text" name="name" placeholder="Name" th:field="*{name}" required></div>
@@ -53,7 +53,6 @@
                     <div class="mb-3"><input class="form-control" type="email" name="email"
                                              placeholder="Email"><!-- Start: The Error Message -->
                         <span class="form-text text-danger" th:if="${emailField != null}" th:text="${emailField}" required></span>
-
                         <!-- End: The Error Message -->
                     </div><!-- End: Error Example -->
                     <div class="mb-3">

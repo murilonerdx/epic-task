@@ -74,6 +74,9 @@ public class PerfilController {
         }else if(password.length() < 8){
             md.addObject("passwordField", "A senha precisa ser maior que 8");
             return md;
+        }else if(email.isEmpty() || password.isEmpty() || perfil.getName().isEmpty()){
+            md.addObject("fieldsInvalid", "Digite todos campos corretamente");
+            return md;
         }
 
         if (perfil != null && existUsuario == null ) {
