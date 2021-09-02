@@ -26,12 +26,12 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.murilonerdx.epictask.util.ImageTransform.createMapAndImgPushView;
-import static com.murilonerdx.epictask.util.ImageTransform.verifyIfExistsImgs;
+import static com.murilonerdx.epictask.util.ImageTransform.*;
 
 @SuppressWarnings("ALL")
 @Controller
@@ -67,13 +67,22 @@ public class PerfilController {
                              Model model) throws IOException {
         ModelAndView md = new ModelAndView("cadastrarPerfil");
         Usuario existUsuario = usuarioService.findByEmail(email);
-        if (perfil != null && existUsuario == null) {
-            perfil.setData(photo.getBytes());
+
+        if(existUsuario != null){
+            md.addObject("emailField", "Email já existe no banco de dados");
+            return md;
+        }else if(password.length() < 8){
+            md.addObject("passwordField", "A senha precisa ser maior que 8");
+            return md;
+        }
+
+        if (perfil != null && existUsuario == null ) {
+            byte[] imageByteDefault = returnBytesDefault();
+            perfil.setData(photo.getOriginalFilename().isEmpty() ? imageByteDefault : photo.getBytes());
             Usuario usuario = usuarioService.create(new Usuario(null, email, password, Role.ADMIN, perfil));
             usuarioService.create(usuario);
             return new ModelAndView("tarefas").addObject("tarefas", tarefaService.searchPaginetedTarefas(PageRequest.of(0, 5)));
         }
-        md.addObject("errors", "Email/Invalido já existe no banco de dados");
         return md;
     }
 

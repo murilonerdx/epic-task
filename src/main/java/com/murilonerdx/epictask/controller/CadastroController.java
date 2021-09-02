@@ -10,6 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
+import static com.murilonerdx.epictask.util.ImageTransform.returnBytesDefault;
+
 
 @Controller
 public class CadastroController {
@@ -22,15 +28,19 @@ public class CadastroController {
 
     @RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
     public String cadastrar(@Valid Usuario usuario,
-                            BindingResult result, Model model) {
+                            BindingResult result, Model model) throws IOException {
         Usuario verifyExist = service.findByEmail(usuario.getEmail());
-        if (verifyExist != null)
+        if (result.hasErrors() || verifyExist != null){
             model.addAttribute("emailExist", "O email já está cadastrado");
-        if (result.hasErrors())
             return "cadastrar";
+        }else{
+            byte[] imageByteDefault = returnBytesDefault();
 
-        usuario.setRole(Role.USER);
-        service.create(usuario);
+            usuario.setRole(Role.USER);
+            usuario.getPerfil().setData(imageByteDefault);
+            service.create(usuario);
+        }
+
         return "redirect:/login";
     }
 }

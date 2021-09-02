@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -29,10 +30,10 @@ public abstract class ImageTransform {
     }
 
     public static void verifyIfExistsImgs(File index) {
-        if(index.exists()){
-            String[]entries = index.list();
-            for(String s: Objects.requireNonNull(entries)){
-                File currentFile = new File(index.getPath(),s);
+        if (index.exists()) {
+            String[] entries = index.list();
+            for (String s : Objects.requireNonNull(entries)) {
+                File currentFile = new File(index.getPath(), s);
                 currentFile.delete();
             }
         }
@@ -47,5 +48,10 @@ public abstract class ImageTransform {
         fos.flush();
         fd.sync();
         fos.close();
+    }
+
+    public static byte[] returnBytesDefault() throws IOException {
+        File file = new File("src/main/resources/static/show/perfil.jpg");
+        return Files.readAllBytes(file.toPath());
     }
 }
