@@ -50,6 +50,7 @@ public class Tarefa implements Serializable {
   @JsonFormat(pattern = "dd/MM/yyyy")
   private LocalDate date;
 
+  @Getter
   private boolean obtain;
 
   @Enumerated(EnumType.STRING)

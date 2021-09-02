@@ -56,7 +56,7 @@ public class ApiTaskController {
         return ResponseEntity.of(repository.findById(id));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @ApiOperation(value = "Deletar tarefa por id")
     public ResponseEntity<Tarefa> delete(@PathVariable Long id) {
         Optional<Tarefa> task = repository.findById(id);
@@ -79,9 +79,13 @@ public class ApiTaskController {
             return ResponseEntity.notFound().build();
 
         Tarefa tarefa = optional.get();
+        tarefa.setProgress(newTarefa.getProgress());
         tarefa.setTitle(newTarefa.getTitle());
         tarefa.setDescription(newTarefa.getDescription());
         tarefa.setScore(newTarefa.getScore());
+        if(!newTarefa.isObtain()){
+            tarefa.setPerfil(null);
+        }
 
         repository.save(tarefa);
 

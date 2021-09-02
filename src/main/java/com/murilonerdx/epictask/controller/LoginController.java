@@ -36,7 +36,7 @@ public class LoginController {
         if(buscarUsuario != null && buscarUsuario.getPassword().equals(user.getPassword())){
             return new ModelAndView("tarefas").addObject("tarefas", tarefaService.searchPaginetedTarefas(PageRequest.of(0, 5)));
         }
-        model.addAttribute("errorValid", "Email invalido");
+        model.addAttribute("errorValid", "Email ou senha invalido");
         model.addAttribute("tarefas", tarefaService.searchPaginetedTarefas(PageRequest.of(0, 5)));
         return new ModelAndView("login");
     }
