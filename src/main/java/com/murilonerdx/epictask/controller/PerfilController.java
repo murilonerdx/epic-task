@@ -50,7 +50,7 @@ public class PerfilController {
     }
 
     @RequestMapping(value = "/perfil/cadastrarPerfil", method = RequestMethod.POST)
-    public ModelAndView save(@Valid @ModelAttribute("usuario") Usuario usuario,
+    public ModelAndView save(@ModelAttribute("usuario") @Valid Usuario usuario,
                              @RequestParam("photo") MultipartFile photo,
                              BindingResult result,
                              Model model

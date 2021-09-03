@@ -53,7 +53,7 @@
         <button class="btn btn-success" type="button" style="margin: 20px;">Pegar tarefa</button>
     </div>
     <div class="col-md-6 text-center" style="box-shadow: 0px 0px 5px;margin: 10px;" th:if="${tarefa.obtain == true}">
-        <form action="/desistirTarefa" method="POST" th:object="${tarefa}">
+        <form action="#" method="POST" th:object="${tarefa}">
             <div class="row">
                 <div class="col">
                     <h1 th:text="${tarefa.title}" th:field="*{title}">Criando modelo de banco</h1>
