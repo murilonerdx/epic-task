@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,14 +31,13 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(value="/fazerLogin", method = RequestMethod.POST)
-    public ModelAndView fazerLogin(@Valid Usuario user,  BindingResult result, Model model){
-        Usuario buscarUsuario = repository.findByEmail(user.getEmail());
-        if(buscarUsuario != null && buscarUsuario.getPassword().equals(user.getPassword())){
+    @RequestMapping(value="/login",method = RequestMethod.POST)
+    public ModelAndView fazerLogin(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, Model model){
+        Usuario buscarUsuario = repository.findByEmail(usuario.getEmail());
+        if(buscarUsuario != null && buscarUsuario.getPassword().equals(usuario.getPassword())){
             return new ModelAndView("tarefas").addObject("tarefas", tarefaService.searchPaginetedTarefas(PageRequest.of(0, 5)));
         }
         model.addAttribute("errorValid", "Email ou senha invalido");
-        model.addAttribute("tarefas", tarefaService.searchPaginetedTarefas(PageRequest.of(0, 5)));
         return new ModelAndView("login");
     }
 

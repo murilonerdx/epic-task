@@ -47,15 +47,15 @@ public class TarefaController {
     }
 
     @PostMapping("/")
-    public ModelAndView listaSalvas(@Valid Tarefa tarefaValidation, BindingResult result) {
+    public ModelAndView listaSalvas(@Valid @ModelAttribute("tarefa") Tarefa tarefa, BindingResult result) {
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("criarTarefa");
-            mv.addObject("tarefa", tarefaValidation);
+            mv.addObject("tarefa", tarefa);
             mv.addObject("errors", result.getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList()));
             return mv;
         }
-        tarefaValidation.setProgress(0);
-        service.create(tarefaValidation);
+        tarefa.setProgress(0);
+        service.create(tarefa);
         return new ModelAndView("tarefas").addObject("tarefas", service.searchPaginetedTarefas(PageRequest.of(0, 5)));
     }
 

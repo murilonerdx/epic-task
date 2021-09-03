@@ -1,10 +1,11 @@
 package com.murilonerdx.epictask.entities;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 
 import com.murilonerdx.epictask.entities.enums.Role;
 import lombok.*;
-import org.hibernate.validator.constraints.Length;
+
 
 
 @Getter
@@ -20,6 +21,7 @@ public class Usuario {
   @Column(unique = true)
   @Email
   private String email;
+  @Size(min=8, message="A senha deve ter no minimo 8 caracters")
   private String password;
   @Enumerated(value=EnumType.STRING)
   private Role role;

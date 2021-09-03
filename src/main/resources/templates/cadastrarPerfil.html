@@ -43,41 +43,51 @@
         <div class="intro">
             <h2 class="text-center">CADASTRAR UM LIDER</h2><!-- Start: Contact Form Clean -->
             <section class="contact-clean">
-                <form action="/perfil/cadastrarPerfil" method="POST" th:object="${perfil}" enctype="multipart/form-data">
-                    <span class="form-text text-danger" th:if="${fieldsInvalid != null}" th:text="${fieldsInvalid}" required></span>
+                <form action="/perfil/cadastrarPerfil" method="POST" modelAttribute="usuario" th:object="${usuario}"
+                      enctype="multipart/form-data">
                     <h2 class="text-center">EPIC TASK&nbsp;</h2><!-- Start: Success Example -->
 
-                    <div class="mb-3"><input class="form-control" type="text" name="name" placeholder="Name" th:field="*{name}" required></div>
-                    <!-- End: Success Example -->
-                    <!-- Start: Error Example -->
-                    <div class="mb-3"><input class="form-control" type="email" name="email"
-                                             placeholder="Email"><!-- Start: The Error Message -->
-                        <span class="form-text text-danger" th:if="${emailField != null}" th:text="${emailField}" required></span>
-                        <!-- End: The Error Message -->
-                    </div><!-- End: Error Example -->
-                    <div class="mb-3">
+                    <div class="form-group">
+                        <div class="mb-3"><input class="form-control" type="text" name="name" placeholder="Name"
+                                                 th:field="*{perfil.name}" required></div>
+                        <span class="form-text text-danger" th:if="${#fields.hasErrors('perfil.name')}"
+                              th:errors="*{perfil.name}"></span>
+                        <!-- End: Success Example -->
                         <!-- Start: Error Example -->
-                        <div class="mb-3"><input class="form-control" type="password" name="password"
-                                                 placeholder="Senha" required><!-- Start: The Error Message -->
-                            <span class="form-text text-danger" th:if="${passwordField != null}" th:text="${passwordField}" required></span>
-
+                        <div class="mb-3"><input class="form-control" type="email" name="email"
+                                                 placeholder="Email" th:field="*{email}">
+                            <!-- Start: The Error Message -->
+                            <span class="form-text text-danger" th:if="${#fields.hasErrors('email')}"
+                                  th:errors="*{email}"></span>
                             <!-- End: The Error Message -->
                         </div><!-- End: Error Example -->
-                        <!-- Start: Custom File Upload -->
-                        <div style="width: 200px;">
-                            <input class="form-control custom-file-input" type="file"
-                                   id="user_group_logo" accept="image/jpg"
-                                   name="photo"
-                                   style="width: 280px;margin: 4px;height: 38px;">
-                            <div class="text-center">
-                                <label class="form-label" id="user_group_label"
-                                       for="user_group_logo"><i class="fas fa-upload"></i>&nbsp;Choose
-                                    an image...</label></div>
-                            <div class="text-center mt-2"></div>
+                        <div class="mb-3">
+                            <!-- Start: Error Example -->
+                            <div class="mb-3"><input class="form-control" type="password" name="password"
+                                                     placeholder="Senha" required th:field="*{password}">
+                                <!-- Start: The Error Message -->
+                                <span class="form-text text-danger" th:if="${fieldPasswordInvalid != null}"
+                                      th:text="*{fieldPasswordInvalid}"></span>
+
+                                <!-- End: The Error Message -->
+                            </div><!-- End: Error Example -->
+                            <!-- Start: Custom File Upload -->
+                            <div style="width: 200px;">
+                                <input class="form-control custom-file-input" type="file"
+                                       id="user_group_logo" accept="image/jpg"
+                                       name="photo"
+                                       style="width: 280px;margin: 4px;height: 38px;">
+                                <div class="text-center">
+                                    <label class="form-label" id="user_group_label"
+                                           for="user_group_logo"><i class="fas fa-upload"></i>&nbsp;Choose
+                                        an image...</label></div>
+                                <div class="text-center mt-2"></div>
+                            </div>
+                            <button class="btn btn-primary" type="submit">CADASTRAR</button>
                         </div>
-                        <button class="btn btn-primary" type="submit">CADASTRAR</button>
+                        <div class="mb-3"></div>
                     </div>
-                    <div class="mb-3"></div>
+
                 </form>
             </section><!-- End: Contact Form Clean -->
         </div><!-- End: Intro -->
@@ -85,8 +95,10 @@
         <div class="row people">
             <div class="col-md-6 col-lg-4 item" th:each=" perfil : ${perfis}">
                 <div class="box">
-                    <img class="rounded-circle" th:src="@{/img/{linkImage}(linkImage=${perfil.getKey()})}"  width="160" height="160" alt="foto perfil" th:if="${perfil.getValue().getData() != null}"/>
-                    <img class="rounded-circle" th:src="@{/show/perfil.jpg}"  width="160" height="160" alt="foto perfil" th:if="${perfil.getValue().getData() == null}"/>
+                    <img class="rounded-circle" th:src="@{/img/{linkImage}(linkImage=${perfil.getKey()})}" width="160"
+                         height="160" alt="foto perfil" th:if="${perfil.getValue().getData() != null}"/>
+                    <img class="rounded-circle" th:src="@{/show/perfil.jpg}" width="160" height="160" alt="foto perfil"
+                         th:if="${perfil.getValue().getData() == null}"/>
                     <h3 class="name" th:text="${perfil.getValue().getName()}">Ben Johnson</h3>
                     <p class="title" th:text="${perfil.getValue().getScore()} + PTS">150pts</p>
                 </div>

@@ -14,10 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,7 +23,6 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,44 +49,40 @@ public class PerfilController {
         this.usuarioService = usuarioService;
     }
 
-//    @RequestMapping(value = "/cadastrarPerfil", method = RequestMethod.GET)
-//    public String routeCadastrarPerfil(Perfil perfil) {
-//        return "cadastrarPerfil";
-//    }
-
     @RequestMapping(value = "/perfil/cadastrarPerfil", method = RequestMethod.POST)
-    public ModelAndView save(@Valid Perfil perfil,
+    public ModelAndView save(@Valid @ModelAttribute("usuario") Usuario usuario,
                              @RequestParam("photo") MultipartFile photo,
-                             @RequestParam("email") String email,
-                             @RequestParam("password") String password,
                              BindingResult result,
-                             Model model) throws IOException {
-        ModelAndView md = new ModelAndView("cadastrarPerfil");
-        Usuario existUsuario = usuarioService.findByEmail(email);
+                             Model model
+    ) throws IOException {
+        Usuario existUsuario = usuarioService.findByEmail(usuario.getEmail());
 
-        if(existUsuario != null){
-            md.addObject("emailField", "Email já existe no banco de dados");
-            return md;
-        }else if(password.length() < 8){
-            md.addObject("passwordField", "A senha precisa ser maior que 8");
-            return md;
-        }else if(email.isEmpty() || password.isEmpty() || perfil.getName().isEmpty()){
-            md.addObject("fieldsInvalid", "Digite todos campos corretamente");
-            return md;
+        if (result.hasErrors()) {
+            return new ModelAndView("cadastrarPerfil");
         }
 
-        if (perfil != null && existUsuario == null ) {
+        //Validação para password não está funcionando de acordo com o esperado
+        if (usuario.getPassword().length() < 8) {
+            new ModelAndView("cadastrarPerfil").addObject("fieldPasswordInvalid", "A senha deve ter no minimo 8 caracters");
+            return new ModelAndView("cadastrarPerfil");
+        }
+
+        if (existUsuario != null) {
+            new ModelAndView("cadastrarPerfil").addObject("emailField", "Email já existe no banco de dados");
+            return new ModelAndView("cadastrarPerfil");
+        }
+
+        if (usuario.getPerfil() != null && existUsuario == null) {
             byte[] imageByteDefault = returnBytesDefault();
-            perfil.setData(photo.getOriginalFilename().isEmpty() ? imageByteDefault : photo.getBytes());
-            Usuario usuario = usuarioService.create(new Usuario(null, email, password, Role.ADMIN, perfil));
-            usuarioService.create(usuario);
+            usuario.getPerfil().setData(photo.getOriginalFilename().isEmpty() ? imageByteDefault : photo.getBytes());
+            usuarioService.create(new Usuario(null, usuario.getEmail(), usuario.getPassword(), Role.ADMIN, usuario.getPerfil()));
             return new ModelAndView("tarefas").addObject("tarefas", tarefaService.searchPaginetedTarefas(PageRequest.of(0, 5)));
         }
-        return md;
+        return new ModelAndView("cadastrarPerfil");
     }
 
     @RequestMapping(value = "/perfil/cadastrarPerfil", method = RequestMethod.GET)
-    public ModelAndView tarefasPendentes(Perfil perfil) throws IOException {
+    public ModelAndView tarefasPendentes(Usuario usuario) throws IOException {
         Map<String, Perfil> mapeamento = new HashMap<>();
         File index = new File(PATH_LOCAL_IMG);
         ModelAndView mv = new ModelAndView("cadastrarPerfil");
@@ -106,7 +98,7 @@ public class PerfilController {
             return mv;
         }
 
-        mv.addObject("perfil",mapeamento );
+        mv.addObject("perfil", mapeamento);
         return mv;
     }
 
