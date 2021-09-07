@@ -1,2 +1,4 @@
 # epic-task
-Projeto desenvolvido para aprendizagem
+Projeto de uma aplicação de gerenciamento ágil inteligente.
+
+RM84319 - MURILO PEREIRA
