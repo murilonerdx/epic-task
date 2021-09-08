@@ -25,6 +25,7 @@ import java.util.Optional;
 @RequestMapping("/api/usuario")
 @Api(tags="Endpoint para usuario")
 public class ApiUsuarioController {
+
     @Autowired
     private UsuarioRepository repository;
 

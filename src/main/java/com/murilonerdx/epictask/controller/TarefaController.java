@@ -2,7 +2,9 @@ package com.murilonerdx.epictask.controller;
 
 import com.murilonerdx.epictask.entities.Tarefa;
 
+import com.murilonerdx.epictask.security.UserDetailsServiceImpl;
 import com.murilonerdx.epictask.services.TarefaService;
+import com.murilonerdx.epictask.services.impl.UsuarioServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 public class TarefaController {
 
     TarefaService service;
+
 
     @Autowired
     public TarefaController(TarefaService service) {
@@ -83,6 +86,8 @@ public class TarefaController {
         mv.addAttribute("tarefas", service.searchPaginetedTarefas(PageRequest.of(page, size)));
         return mv;
     }
+
+
 
 
 }

@@ -1,9 +1,8 @@
 package com.murilonerdx.epictask.controller;
 
-import com.murilonerdx.epictask.entities.Perfil;
-import com.murilonerdx.epictask.entities.Tarefa;
 import com.murilonerdx.epictask.entities.Usuario;
 import com.murilonerdx.epictask.repository.UsuarioRepository;
+import com.murilonerdx.epictask.security.UserDetailsServiceImpl;
 import com.murilonerdx.epictask.services.impl.TarefaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -25,6 +24,9 @@ public class LoginController {
 
     @Autowired
     private TarefaServiceImpl tarefaService;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
     @RequestMapping(value="/login", method = RequestMethod.GET)
     public String login(Usuario usuario){

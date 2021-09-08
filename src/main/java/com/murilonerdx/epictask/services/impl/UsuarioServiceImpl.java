@@ -1,10 +1,10 @@
 package com.murilonerdx.epictask.services.impl;
 
 import com.murilonerdx.epictask.entities.Usuario;
-import com.murilonerdx.epictask.entities.enums.Role;
 import com.murilonerdx.epictask.repository.UsuarioRepository;
 import com.murilonerdx.epictask.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,4 +28,5 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Usuario findByEmail(String email){
         return repository.findByEmail(email);
     }
+
 }
