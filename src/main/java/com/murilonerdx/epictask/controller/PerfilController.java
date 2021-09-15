@@ -8,7 +8,7 @@ import com.murilonerdx.epictask.services.impl.TarefaServiceImpl;
 import com.murilonerdx.epictask.services.impl.UsuarioServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

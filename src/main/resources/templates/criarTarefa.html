@@ -56,7 +56,9 @@
                         <br>
                         <span th:errorclass="error" th:errors="*{description}"></span>
                         <input class="form-range" type="range" name="score" min="50" max="200" step="50"
-                               style="filter: contrast(93%) hue-rotate(317deg) saturate(49%);">
+                               style="filter: contrast(93%) hue-rotate(317deg) saturate(49%);" id="score" oninput="document.querySelector('#out-points').value=this.value">
+                        <output class="text-center" id="out-points"></output>
+                        <br>
                         <button class="btn btn-success" data-bss-hover-animate="pulse" type="submit"
                                 style="margin: 5px;margin-bottom: 20px;">SALVAR
                         </button>
