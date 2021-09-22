@@ -33,7 +33,7 @@ public class DbInitializer {
   public boolean instantiateDatabase(){
 
     Perfil perfil = new Perfil(null, "Murilo",null, 200.00);
-    Usuario user = new Usuario(null, "mu-silva@outlook.com","$2a$12$QyF4w1FII8opXmjlEX53PuK45.a8MBQI40c7kbQ9o5y1fbUKwHrfW", Role.USER, perfil);
+    Usuario user = new Usuario(null, "mu-silva@outlook.com","$2a$12$QyF4w1FII8opXmjlEX53PuK45.a8MBQI40c7kbQ9o5y1fbUKwHrfW", Role.ADMIN, perfil);
     userRepository.save(user);
 
     Tarefa task = new Tarefa(null, "Criar banco de dados Oracle", "Banco de dados com dados populados", LocalDate

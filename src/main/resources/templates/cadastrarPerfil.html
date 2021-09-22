@@ -6,7 +6,7 @@
 <section class="team-boxed">
     <div class="container">
         <!-- Start: Intro -->
-        <div class="intro">
+        <div class="intro" th:if="${role == 'ADMIN'}">
             <h2 class="text-center">CADASTRAR UM LIDER</h2><!-- Start: Contact Form Clean -->
             <section class="contact-clean">
                 <form th:action="@{/perfil/cadastrarPerfil}" method="POST" modelAttribute="usuario" th:object="${usuario}" enctype="multipart/form-data">

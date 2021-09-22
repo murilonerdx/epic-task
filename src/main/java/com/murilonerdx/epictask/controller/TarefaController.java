@@ -1,5 +1,6 @@
 package com.murilonerdx.epictask.controller;
 
+import com.murilonerdx.epictask.entities.Perfil;
 import com.murilonerdx.epictask.entities.Tarefa;
 import com.murilonerdx.epictask.entities.Usuario;
 import com.murilonerdx.epictask.repository.UsuarioRepository;
@@ -9,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -71,18 +74,19 @@ public class TarefaController {
         return new ModelAndView("tarefas").addObject("tarefas", service.searchPaginetedTarefas(PageRequest.of(0, 5)));
     }
 
-//    @PostMapping("/tarefa/desistirTarefa")
-//    public String desistirTarefa(@ModelAttribute Tarefa tarefa, HttpServletRequest request, Model model){
-//        Tarefa backTarefa = service.findByTitleAndPerfil(tarefa.getTitle(), new Perfil());
-//        tarefa.setId(backTarefa.getId());
-//        tarefa.setPerfil(null);
-//        service.update(tarefa, tarefa.getId());
-//        getModelAndView(request, model);
-//        return "tarefas";
-//    }
+    @PostMapping("/tarefa/desistirTarefa")
+    public String desistirTarefa(@ModelAttribute Tarefa tarefa, HttpServletRequest request, Model model){
+        Tarefa backTarefa = service.findByTitleAndPerfil(tarefa.getTitle(), authenticationFacade.getSessionUser(model).getPerfil());
+        tarefa.setId(backTarefa.getId());
+        tarefa.setPerfil(null);
+        service.update(tarefa, tarefa.getId());
+        getModelAndView(request, model);
+        return "tarefas";
+    }
 
     public Model getModelAndView(HttpServletRequest request, Model mv) {
         mv.addAttribute("points", authenticationFacade.getSessionUser(mv).getPerfil().getScore());
+        mv.addAttribute("name", authenticationFacade.getSessionUser(mv).getPerfil().getName());
 
         int page = 0, size = 5;
 

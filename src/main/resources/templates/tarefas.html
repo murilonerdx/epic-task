@@ -43,10 +43,14 @@
                      th:style="'width:' + ${tarefa.progress} +'%;'" th:text="${tarefa.progress} + '%'">
                 </div>
             </div>
-            <button class="btn btn-warning" type="submit" style="margin: 20px;">Desistir
-                da tarefa
-            </button>
-            <button class="btn btn-primary" type="button" style="margin: 20px;">Definir status da tarefa</button>
+            <div th:if="${tarefa.perfil.name == name}">
+                <button class="btn btn-warning" type="submit" style="margin: 20px;">Desistir
+                    da tarefa
+                </button>
+                <button class="btn btn-primary" type="button" style="margin: 20px;">Definir status da tarefa</button>
+            </div>
+            <br>
+
         </form>
     </div>
 </div>
