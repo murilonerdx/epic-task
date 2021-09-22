@@ -3,6 +3,7 @@ package com.murilonerdx.epictask.controller;
 import com.murilonerdx.epictask.entities.Usuario;
 import com.murilonerdx.epictask.entities.enums.Role;
 import com.murilonerdx.epictask.services.impl.UsuarioServiceImpl;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +18,7 @@ import static com.murilonerdx.epictask.util.ImageTransform.returnBytesDefault;
 
 
 @Controller
-public class CadastroController {
+public class  CadastroController {
 
     private final UsuarioServiceImpl service;
 
@@ -28,19 +29,17 @@ public class CadastroController {
     @RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
     public String cadastrar(@Valid @ModelAttribute("usuario") Usuario usuario,
                             BindingResult result, Model model) throws IOException {
-        Usuario verifyExist = service.findByEmail(usuario.getEmail());
-
-        model.addAttribute("emailExist", "O email já está cadastrado");
-
+        boolean verifyExist = service.findByEmail(usuario.getEmail()) != null;
         if (result.hasErrors()) {
             return "cadastrar";
         }
-        if (verifyExist != null) {
+        if (verifyExist) {
             model.addAttribute("passwordValid", "A senha deve ser maior que 8");
             return "cadastrar";
         }
 
         byte[] imageByteDefault = returnBytesDefault();
+
         usuario.setRole(Role.USER);
         usuario.getPerfil().setData(imageByteDefault);
         service.create(usuario);

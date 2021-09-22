@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Cadastrar Perfil</title>
+    <link rel="stylesheet" href="../static/fonts/fontawesome-all.min.css" th:href="@{/fonts/fontawesome-all.min.css}">
+    <link rel="stylesheet" href="../static/css/Contact-Form-Clean.css" th:href="@{/css/Contact-Form-Clean.css}">
+    <link rel="stylesheet" href="../static/css/Custom-File-Upload.css" th:href="@{/css/Custom-File-Upload.css}">
+    <link rel="stylesheet" href="../static/css/Team-Boxed.css" th:href="@{/css/Team-Boxed.css}">
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css"
+          th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../static/fonts/font-awesome.min.css" th:href="@{/fonts/font-awesome.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="../static/css/Navigation-with-Button.css" th:href="@{/css/Navigation-with-Button.css}">
+    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}">
+</head>
+
+<body th:fragment="head">
+<div class="row">
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+        <div class="container"><a class="navbar-brand" href="/">EPIC TASK</a>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Pendentes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/concluidas">Concluidas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/perfil/cadastrarPerfil">Cadastrar Perfil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Rankings</a></li>
+                </ul>
+                <h4 class="text-success" style="margin-right: 15px;" th:if="${points != null}" th:text="${points} + 'PTS'">502pts</h4><a class="btn btn-light action-button" role="button"
+                                                        href="/logout">Logout</a></span>
+            </div>
+        </div>
+</div>
+</body>
+</html>

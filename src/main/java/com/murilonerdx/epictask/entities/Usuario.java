@@ -5,7 +5,10 @@ import javax.validation.constraints.Size;
 
 import com.murilonerdx.epictask.entities.enums.Role;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 
 
 @Getter
@@ -14,7 +17,7 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Table(name="tb_usuario")
-public class Usuario {
+public class Usuario implements UserDetails {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -34,5 +37,35 @@ public class Usuario {
     this.email = email;
     this.password = password;
     this.role = role;
+  }
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return null;
+  }
+
+  @Override
+  public String getUsername() {
+    return this.email;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
   }
 }

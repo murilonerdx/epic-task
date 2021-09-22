@@ -18,7 +18,7 @@
 
 <body>
     <div id="login-one" class="login-one">
-        <form class="login-one-form" action="/login" method="POST" th:object="${usuario}">
+        <form class="login-one-form" th:action="@{/login}" method="POST" th:object="${usuario}">
             <div class="col">
                 <div class="login-one-ico"><i class="fa fa-anchor"></i></div>
                 <div class="form-group mb-3">
@@ -26,9 +26,9 @@
                         <h3 id="heading">Log in:</h3>
                     </div>
                     <span class="form-text text-danger" th:if="${errorValid != null}" th:text="${errorValid}"></span>
-                    <input class="form-control" type="text" id="input" placeholder="Email *" required th:field="*{email}">
+                    <input class="form-control" type="text" id="email" placeholder="Email *" required th:field="*{email}">
                     <span class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-                    <input class="form-control" type="password" id="input" placeholder="Password *" required th:field="*{password}">
+                    <input class="form-control" type="password" id="password" placeholder="Password *" required th:field="*{password}">
                     <button class="btn btn-primary" id="button" style="background-color:#007ac9;" type="submit">Log in</button>
                     <a href="/cadastrar" style="text-decoration: none;">Criar uma nova conta</a>
                 </div>

@@ -1,37 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Epic Task</title>
-    <link rel="icon" type="image/jpeg" sizes="1024x342" href="../static/img/campfire-guy-girl%20(1).jpg">
-    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css"
-          th:href="@{/bootstrap/css/bootstrap.min.css}">
-    <link rel="stylesheet" href="../static/fonts/font-awesome.min.css" th:href="@{/fonts/font-awesome.min.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="../static/css/Login-Form-Clean.css" th:href="@{/css/Login-Form-Clean.css}">
-    <link rel="stylesheet" href="../static/css/Login-screen.css" th:href="@{/css/Login-screen.css}">
-    <link rel="stylesheet" href="../static/css/Navigation-with-Button.css" th:href="@{/css/Navigation-with-Button.css}">
-    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}">
-</head>
+<head th:include="_template :: head"></head>
 
 <body class="text-center">
-<nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
-    <div class="container"><a class="navbar-brand" href="#">EPIC TASK</a>
-        <div class="collapse navbar-collapse" id="navcol-1">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link active" href="#">Pendentes</a></li>
-                <li class="nav-item"><a class="nav-link" href="/concluidas">Concluidas</a></li>
-                <li class="nav-item"><a class="nav-link" href="/perfil/cadastrarPerfil">Cadastrar Perfil</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Rankings</a></li>
-            </ul>
-            <h4 class="text-success" style="margin-right: 15px;">502pts</h4><span class="navbar-text actions"> <a
-                class="login" href="#">Log In</a><a class="btn btn-light action-button" role="button"
-                                                    href="#">Sign Up</a></span>
-        </div>
-    </div>
-</nav>
+
 <h2 class="display-4 text-nowrap text-uppercase text-center" style="margin: 10px;margin-bottom: 10px;">Tarefas
     pendentes</h2><a class="btn btn-primary" data-bss-hover-animate="pulse" type="button"
                      style="margin: 10px;margin-left: 35%;" href="/criarTarefa">Criar tarefa</a>

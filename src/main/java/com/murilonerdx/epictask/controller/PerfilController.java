@@ -6,6 +6,7 @@ import com.murilonerdx.epictask.entities.enums.Role;
 import com.murilonerdx.epictask.services.impl.PerfilServiceImpl;
 import com.murilonerdx.epictask.services.impl.TarefaServiceImpl;
 import com.murilonerdx.epictask.services.impl.UsuarioServiceImpl;
+import com.murilonerdx.epictask.services.security.IAuthenticationFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -40,10 +41,12 @@ public class PerfilController {
     PerfilServiceImpl perfilService;
     TarefaServiceImpl tarefaService;
     UsuarioServiceImpl usuarioService;
+    IAuthenticationFacade authenticationFacade;
 
 
     @Autowired
-    public PerfilController(PerfilServiceImpl perfilService, TarefaServiceImpl tarefaService, UsuarioServiceImpl usuarioService) {
+    public PerfilController(PerfilServiceImpl perfilService, TarefaServiceImpl tarefaService, UsuarioServiceImpl usuarioService, IAuthenticationFacade authenticationFacade) {
+        this.authenticationFacade = authenticationFacade;
         this.perfilService = perfilService;
         this.tarefaService = tarefaService;
         this.usuarioService = usuarioService;
@@ -82,10 +85,11 @@ public class PerfilController {
     }
 
     @RequestMapping(value = "/perfil/cadastrarPerfil", method = RequestMethod.GET)
-    public ModelAndView tarefasPendentes(Usuario usuario) throws IOException {
+    public ModelAndView tarefasPendentes(Usuario usuario, Model model) throws IOException {
         Map<String, Perfil> mapeamento = new HashMap<>();
         File index = new File(PATH_LOCAL_IMG);
         ModelAndView mv = new ModelAndView("cadastrarPerfil");
+        mv.addObject("points", authenticationFacade.getSessionUser(model).getPerfil().getScore());
         List<Usuario> usuarios = usuarioService.findByRole();
 
         /* Deletar todos as imagens toda vez que chamar o endpoint
