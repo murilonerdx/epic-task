@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head th:include="_template :: head"></head>
+
+<body class="text-center">
+<title>Minhas tarefas</title>
+<h2 class="display-4 text-nowrap text-uppercase text-center" style="margin: 10px;margin-bottom: 10px;">Minhas tarefas</h2>
+<div class="row d-flex justify-content-around justify-content-center" th:each="tarefa : ${tarefas}">
+    <div class="col-md-6 text-center" style="box-shadow: 0px 0px 7px;margin: 10px;" th:if="${tarefa.obtain == false}">
+        <div class="row">
+            <h1 th:text="${tarefa.title}">Criando modelo de banco</h1>
+        </div>
+        <p style="margin: 10px;" th:text="${tarefa.description}">Paragraph</p><strong class="text-success"
+                                                                                      th:text="${tarefa.score}">150pts</strong>
+        <div class="progress" style="margin-top: 10px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated"
+                 th:attr="aria-valuenow=${tarefa.progress}" aria-valuemin="0" aria-valuemax="100"
+                 th:style="'width: ' + ${tarefa.progress} +'%;'" th:text="${tarefa.progress} + '%'">
+            </div>
+        </div>
+        <form action="#" th:action="@{/}" method="post">
+            <button class="btn btn-primary" type="submit" th:formaction="@{/tarefas/pegarTarefa/{id}(id=${tarefa.id})}"
+                    style="margin: 20px;">Pegar tarefa
+            </button>
+        </form>
+    </div>
+    <div class="col-md-6 text-center" style="box-shadow: 0px 0px 5px;margin: 10px;"
+         th:if="${tarefa.obtain == true && tarefa.progress < 100}">
+        <form action="#" method="POST" th:object="${tarefa}">
+            <div class="row">
+                <div class="col">
+                    <h1 th:text="${tarefa.title}" th:field="*{title}">Criando modelo de banco</h1>
+                </div>
+            </div>
+            <p style="margin: 10px;" th:text="${tarefa.description}" th:field="*{description}">Paragraph</p>
+            <strong class="font-monospace text-break" th:text="${tarefa.perfil.name}">Murilo Pereira</strong>
+            <br>
+            <strong
+                    class="text-success" th:text="${tarefa.score}" th:field="*{score}">150pts</strong>
+
+            <div class="progress" style="margin-top: 10px;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                     th:attr="aria-valuenow=${tarefa.progress}" aria-valuemin="0" aria-valuemax="100"
+                     th:style="'width:' + ${tarefa.progress} +'%;'" th:text="${tarefa.progress} + '%'">
+                </div>
+            </div>
+            <div th:if="${tarefa.perfil.name == name}">
+                <form action="#" th:action="@{/}" method="post">
+                    <button class="btn btn-warning" type="submit"
+                            th:formaction="@{/tarefas/desistirTarefa/{id}(id=${tarefa.id})}"
+                            style="margin: 20px;">Desistir
+                        da tarefa
+                    </button>
+                </form>
+                <a class="btn btn-primary" type="button" th:href="@{/status/tarefa/{id}(id=${tarefa.id})}"
+                   style="margin: 20px;">Definir status da tarefa</a>
+            </div>
+            <br>
+            <form action="#" th:action="@{/}" method="post" th:if="${role == true && tarefa.progress == 80}">
+                <p>Você só pode finalizar uma tarefa caso seja um administrador e caso a tarefa esteja 80% finalizada</p>
+                <br>
+                <button class="btn btn-success" type="submit"
+                        th:formaction="@{/status/finalizarTarefa/{id}(id=${tarefa.id})}"
+                        style="margin: 20px;">Finalizar tarefa
+                </button>
+            </form>
+        </form>
+    </div>
+</div>
+<script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+<script src="../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<script src="../static/js/bs-init.js" th:src="@{/js/bs-init.js}"></script>
+</body>
+
+</html>

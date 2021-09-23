@@ -16,4 +16,6 @@ public interface TarefaRepository extends JpaRepository<Tarefa, Long> {
     Page<Tarefa> findByTitleContaining(String title, Pageable pageable);
     @Query("SELECT u FROM Tarefa u WHERE u.perfil.name = :name AND u.progress = 100")
     List<Tarefa> findByPerfil(@Param("name") String name);
+    @Query("SELECT u FROM Tarefa u WHERE u.perfil.name = :name")
+    List<Tarefa> findUniqueByPerfilName(@Param("name") String name);
 }

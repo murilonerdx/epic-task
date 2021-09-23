@@ -57,7 +57,7 @@ public class TarefaController {
     }
 
     @PostMapping("/tarefas/pegarTarefa/{id}")
-    public String pegarTarefa(@PathVariable("id") Long id, HttpServletRequest request, Model mv){
+    public String pegarTarefa(@PathVariable("id") Long id,Model mv){
         Tarefa obj = service.getById(id);
         if(obj.isObtain()){
             return "redirect:/tarefas";
@@ -76,8 +76,15 @@ public class TarefaController {
         return "concluidas";
     }
 
+    @GetMapping(value = "/tarefas/minhasTarefas")
+    public String minhasTarefas(HttpServletRequest request, Model mv) {
+        getModelAndView(request, mv);
+        mv.addAttribute("tarefas", tarefaRepository.findUniqueByPerfilName(authenticationFacade.getSessionUser(mv).getPerfil().getName()));
+        return "minhasTarefas";
+    }
+
     @PostMapping(value = "/tarefas/concluidas/pegarPontos/{id}")
-    public String pegarPontos(HttpServletRequest request, Model mv,@PathVariable("id") Long id) {
+    public String pegarPontos(Model mv,@PathVariable("id") Long id) {
         Double points = authenticationFacade.getSessionUser(mv).getPerfil().getScore();
 
         Tarefa tarefa = service.getById(id);
@@ -128,9 +135,12 @@ public class TarefaController {
     @PostMapping("/status/tarefa/{id}")
     public String mudarStatusTarefa(Model model, @PathVariable("id") Long id,HttpServletRequest request, String subjectOrder){
         Tarefa tarefa = service.getById(id);
-        tarefa.setStatusTask(Arrays.stream(StatusTarefa.values()).filter(x-> Objects.equals(x.getId(), Integer.parseInt(subjectOrder))).findFirst().orElse(null));
-        tarefa.setProgress(Integer.parseInt(subjectOrder) == 0 ? 20 : (Integer.parseInt(subjectOrder) + 1) * 20);
-        service.update(tarefa, id);
+        if(Integer.parseInt(subjectOrder) < 4){
+            tarefa.setStatusTask(Arrays.stream(StatusTarefa.values()).filter(x-> Objects.equals(x.getId(), Integer.parseInt(subjectOrder))).findFirst().orElse(null));
+            tarefa.setProgress(Integer.parseInt(subjectOrder) == 0 ? 20 : (Integer.parseInt(subjectOrder) + 1) * 20);
+            service.update(tarefa, id);
+            return "redirect:/tarefas";
+        }
         return "redirect:/tarefas";
     }
 
