@@ -4,6 +4,7 @@ import com.murilonerdx.epictask.entities.Perfil;
 import com.murilonerdx.epictask.entities.Tarefa;
 import com.murilonerdx.epictask.entities.Usuario;
 import com.murilonerdx.epictask.entities.enums.StatusTarefa;
+import com.murilonerdx.epictask.repository.TarefaRepository;
 import com.murilonerdx.epictask.repository.UsuarioRepository;
 import com.murilonerdx.epictask.services.TarefaService;
 import com.murilonerdx.epictask.services.security.IAuthenticationFacade;
@@ -21,10 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -36,9 +34,11 @@ public class TarefaController {
     IAuthenticationFacade authenticationFacade;
     TarefaService service;
     UsuarioRepository usuarioRepository;
+    TarefaRepository tarefaRepository;
 
     @Autowired
-    public TarefaController(TarefaService service, IAuthenticationFacade authenticationFacade,UsuarioRepository usuarioRepository) {
+    public TarefaController(TarefaService service, IAuthenticationFacade authenticationFacade,UsuarioRepository usuarioRepository,TarefaRepository tarefaRepository) {
+        this.tarefaRepository = tarefaRepository;
         this.usuarioRepository = usuarioRepository;
         this.authenticationFacade = authenticationFacade;
         this.service = service;
@@ -59,6 +59,8 @@ public class TarefaController {
     @GetMapping(value = "/concluidas")
     public String tarefasConcluida(HttpServletRequest request, Model mv) {
         getModelAndView(request, mv);
+        List<Tarefa> tarefasConcluidasUsuario = tarefaRepository.findByPerfil(authenticationFacade.getSessionUser(mv).getPerfil().getName());
+        mv.addAttribute("tarefas", tarefasConcluidasUsuario);
         return "concluidas";
     }
 
