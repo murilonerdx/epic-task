@@ -53,7 +53,6 @@ public class TarefaServiceImpl implements TarefaService {
 
     @Override
     public Tarefa findByTitleAndPerfil(String title, Perfil perfil){
-        perfil = new Perfil(null, "Murilo",null, 200.00);
         return repository.findByTitleAndPerfil(title, perfil);
     }
 
@@ -62,17 +61,4 @@ public class TarefaServiceImpl implements TarefaService {
         return repository.findAll(pageable);
     }
 
-    public Tarefa toModel(Tarefa tarefa, Tarefa model){
-        Perfil perfil = new Perfil(1L, "Murilo",null,200.00);
-        Usuario user = new Usuario(1L, "mu-silva@outlook.com","123", Role.ADMIN, perfil);
-        model.setDate(LocalDate.now());
-        model.setDescription(tarefa.getDescription());
-        model.setScore(tarefa.getScore());
-        model.setTitle(tarefa.getTitle());
-        model.setPerfil(perfil);
-        model.setObtain(true);
-        model.setProgress(0);
-        model.setStatusTask(StatusTarefa.ANALISE);
-        return model;
-    }
 }

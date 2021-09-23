@@ -46,8 +46,6 @@ public class TarefaController {
 
     @GetMapping({"/", "/tarefas"})
     public String tarefasPendentes(HttpServletRequest request, Model model) {
-        model.addAttribute("points", authenticationFacade.getSessionUser(model).getPerfil().getScore());
-        model.addAttribute("name", authenticationFacade.getSessionUser(model).getPerfil().getName());
         getModelAndView(request, model);
         return "tarefas";
     }
@@ -120,9 +118,20 @@ public class TarefaController {
         return "redirect:/tarefas";
     }
 
+    @PostMapping("/status/finalizarTarefa/{id}")
+    public String finalizarTarefa(Model model, @PathVariable("id") Long id,HttpServletRequest request){
+        Tarefa tarefa = service.getById(id);
+        tarefa.setStatusTask(StatusTarefa.ENTREGUE);
+        tarefa.setProgress(100);
+        service.update(tarefa, id);
+        return "redirect:/tarefas";
+    }
+
     public Model getModelAndView(HttpServletRequest request, Model mv) {
         mv.addAttribute("points", authenticationFacade.getSessionUser(mv).getPerfil().getScore());
         mv.addAttribute("name", authenticationFacade.getSessionUser(mv).getPerfil().getName());
+        mv.addAttribute("role", authenticationFacade.getSessionUser(mv).getRole().name().equals("ADMIN"));
+
 
         int page = 0, size = 5;
 

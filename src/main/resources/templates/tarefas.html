@@ -22,7 +22,8 @@
         </div>
         <form action="#" th:action="@{/}" method="post">
             <button class="btn btn-primary" type="submit" th:formaction="@{/tarefas/pegarTarefa/{id}(id=${tarefa.id})}"
-                    style="margin: 20px;">Pegar tarefa</button>
+                    style="margin: 20px;">Pegar tarefa
+            </button>
         </form>
     </div>
     <div class="col-md-6 text-center" style="box-shadow: 0px 0px 5px;margin: 10px;"
@@ -46,17 +47,25 @@
                 </div>
             </div>
             <div th:if="${tarefa.perfil.name == name}">
-
                 <form action="#" th:action="@{/}" method="post">
-                    <button class="btn btn-warning" type="submit" th:formaction="@{/tarefas/desistirTarefa/{id}(id=${tarefa.id})}"
+                    <button class="btn btn-warning" type="submit"
+                            th:formaction="@{/tarefas/desistirTarefa/{id}(id=${tarefa.id})}"
                             style="margin: 20px;">Desistir
-                        da tarefa</button>
+                        da tarefa
+                    </button>
                 </form>
                 <a class="btn btn-primary" type="button" th:href="@{/status/tarefa/{id}(id=${tarefa.id})}"
                    style="margin: 20px;">Definir status da tarefa</a>
             </div>
             <br>
-
+            <form action="#" th:action="@{/}" method="post" th:if="${role == true && tarefa.progress == 80}">
+                <p>Você só pode finalizar uma tarefa caso seja um administrador e caso a tarefa esteja 80% finalizada</p>
+                <br>
+                <button class="btn btn-success" type="submit"
+                        th:formaction="@{/status/finalizarTarefa/{id}(id=${tarefa.id})}"
+                        style="margin: 20px;">Finalizar tarefa
+                </button>
+            </form>
         </form>
     </div>
 </div>
