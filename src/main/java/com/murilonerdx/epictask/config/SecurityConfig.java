@@ -32,7 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/tarefas/**", "/perfil/**", "/", "/concluidas")
+                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/tarefas/**", "/perfil/**", "/", "/concluidas","/status/**")
                 .authenticated()
                 .and()
                 .formLogin(form -> form
@@ -44,8 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 )
                 .logout()
                 .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-        ;
+                .deleteCookies("JSESSIONID");
     }
 
     @Bean

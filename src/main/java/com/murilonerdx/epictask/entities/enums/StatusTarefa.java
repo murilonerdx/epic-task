@@ -4,28 +4,38 @@ public enum StatusTarefa {
   /**
    * Quando a tarefa for entregue de acordo com o prazo
    */
-  ENTREGUE("Entregue"),
+  ENTREGUE(4,"Entregue"),
   /**
    * Quando a tarefa for finalizada
    */
-  CONCLUIDO("Concluido"),
+  CONCLUIDO(3,"Concluido"),
   /**
    * Quando a tarefa estiver sendo validada e implementando testes
    */
-  TESTE("Teste e validação"),
+  TESTE(2,"Teste e validação"),
   /**
    * Tarefa sendo desenvolvida
    */
-  DESENVOLVIMENTO("Em Desenvolvimento"),
+  DESENVOLVIMENTO(1,"Em Desenvolvimento"),
   /**
    * Analisando requisitos para desenvolver a tarefa
    */
-  ANALISE("Analise de requisitos");
+  ANALISE(0,"Analise de requisitos");
 
+  private Integer id;
   private String description;
 
-  StatusTarefa(String action) {
+  StatusTarefa(Integer id, String action) {
+    this.id = id;
     this.description = action;
+  }
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
   }
 
   public String getDescription() {
@@ -35,4 +45,5 @@ public enum StatusTarefa {
   public void setDescription(String description) {
     this.description = description;
   }
+
 }

@@ -34,7 +34,10 @@ public class TarefaServiceImpl implements TarefaService {
 
     @Override
     public Tarefa update(Tarefa tarefa, Long id) {
-        return null;
+        Tarefa object = repository.getById(id);
+        object.setStatusTask(tarefa.getStatusTask());
+        object.setProgress(tarefa.getProgress());
+        return repository.save(object);
     }
 
     @Override
@@ -44,8 +47,6 @@ public class TarefaServiceImpl implements TarefaService {
 
     @Override
     public Tarefa create(Tarefa tarefa) {
-        Tarefa createTarefa = toModel(tarefa, new Tarefa());
-
         return repository.save(tarefa);
     }
 

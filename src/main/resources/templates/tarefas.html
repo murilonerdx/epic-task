@@ -3,7 +3,7 @@
 <head th:include="_template :: head"></head>
 
 <body class="text-center">
-
+<title>Tarefas</title>
 <h2 class="display-4 text-nowrap text-uppercase text-center" style="margin: 10px;margin-bottom: 10px;">Tarefas
     pendentes</h2><a class="btn btn-primary" data-bss-hover-animate="pulse" type="button"
                      style="margin: 10px;margin-left: 35%;" href="/criarTarefa">Criar tarefa</a>
@@ -24,7 +24,7 @@
         </div>
         <button class="btn btn-success" type="button" style="margin: 20px;">Pegar tarefa</button>
     </div>
-    <div class="col-md-6 text-center" style="box-shadow: 0px 0px 5px;margin: 10px;" th:if="${tarefa.obtain == true}">
+    <div class="col-md-6 text-center" style="box-shadow: 0px 0px 5px;margin: 10px;" th:if="${tarefa.obtain == true && tarefa.progress < 100}">
         <form action="#" method="POST" th:object="${tarefa}">
             <div class="row">
                 <div class="col">
@@ -47,7 +47,7 @@
                 <button class="btn btn-warning" type="submit" style="margin: 20px;">Desistir
                     da tarefa
                 </button>
-                <button class="btn btn-primary" type="button" style="margin: 20px;">Definir status da tarefa</button>
+                <a class="btn btn-primary" type="button" th:href="@{/status/tarefa/{id}(id=${tarefa.id})}" style="margin: 20px;">Definir status da tarefa</a>
             </div>
             <br>
 

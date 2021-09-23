@@ -3,6 +3,7 @@ package com.murilonerdx.epictask.controller;
 import com.murilonerdx.epictask.entities.Perfil;
 import com.murilonerdx.epictask.entities.Tarefa;
 import com.murilonerdx.epictask.entities.Usuario;
+import com.murilonerdx.epictask.entities.enums.StatusTarefa;
 import com.murilonerdx.epictask.repository.UsuarioRepository;
 import com.murilonerdx.epictask.services.TarefaService;
 import com.murilonerdx.epictask.services.security.IAuthenticationFacade;
@@ -15,14 +16,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -82,6 +83,27 @@ public class TarefaController {
         service.update(tarefa, tarefa.getId());
         getModelAndView(request, model);
         return "tarefas";
+    }
+
+    @GetMapping("/status/tarefa/{id}")
+    public ModelAndView statusTarefa(Model model, @PathVariable("id") Long id, HttpServletRequest request){
+        Tarefa tarefa = service.getById(id);
+        model.addAttribute("tarefa", tarefa);
+        getModelAndView(request,model);
+        if(tarefa.getPerfil() == authenticationFacade.getSessionUser(model).getPerfil()){
+            return new ModelAndView("statusTarefa");
+        }
+        return new ModelAndView("tarefas").addObject("tarefas", service.searchPaginetedTarefas(PageRequest.of(0, 5)));
+    }
+
+    @PostMapping("/status/tarefa/{id}")
+    public String mudarStatusTarefa(Model model, @PathVariable("id") Long id,HttpServletRequest request, String subjectOrder){
+        Tarefa tarefa = service.getById(id);
+        tarefa.setStatusTask(Arrays.stream(StatusTarefa.values()).filter(x-> Objects.equals(x.getId(), Integer.parseInt(subjectOrder))).findFirst().orElse(null));
+        tarefa.setProgress(Integer.parseInt(subjectOrder) == 0 ? 20 : (Integer.parseInt(subjectOrder) + 1) * 20);
+        service.update(tarefa, id);
+        getModelAndView(request, model);
+        return "redirect:/";
     }
 
     public Model getModelAndView(HttpServletRequest request, Model mv) {

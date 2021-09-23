@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head th:include="_template :: head"></head>
+
+<body>
+<title>Status tarefa</title>
+<div class="shadow">
+     <div class="col text-center">
+         <form th:action="@{/status/tarefa/{id}(id=${tarefa.id})}" method="POST">
+         <div class="form-group mb-3">
+             <br>
+            <h3>Definir um novo status</h3>
+             <select id="subjectOrder" name= "subjectOrder">
+                <optgroup label="Selecione o status">
+                    <option value="0" selected>Analise</option>
+                    <option value="1">Desenvolvimento</option>
+                    <option value="2">Testes e validação</option>
+                    <option value="3">Concluido</option>
+                    <option value="4">Entregue</option>
+                </optgroup>
+            </select>
+        </div>
+         <button class="btn btn-primary" type="submit">Alterar STATUS</button>
+         </form>
+     </div>
+</div>
+
+    <script src="../static/js/bootstrap.min.js"></script>
+</body>
+
+</html>
