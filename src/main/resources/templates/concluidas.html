@@ -4,23 +4,32 @@
 
 <body>
 <title>Concluidas</title>
-    <div class="row">
-        <div class="col">
-            <h1 class="display-6 text-uppercase text-center">Tarefas concluidas</h1>
-            <div class="container">
-                <div class="row d-flex d-xxl-flex justify-content-around justify-content-xxl-center" th:each="tarefa : ${tarefas}">
-                    <div class="col-md-6 text-center" style="box-shadow: 0px 0px 5px;margin: 10px;">
-                        <div class="row">
-                            <div class="col">
-                                <h1 th:text="${tarefa.title}">Criando modelo de banco</h1>
-                            </div>
+<div class="row">
+    <div class="col">
+        <h1 class="display-6 text-uppercase text-center">Tarefas concluidas</h1>
+        <div class="container">
+            <div class="row d-flex d-xxl-flex justify-content-around justify-content-xxl-center"
+                 th:each="tarefa : ${tarefas}">
+                <div class="col-md-6 text-center" style="box-shadow: 0px 0px 5px;margin: 10px;">
+                    <div class="row">
+                        <div class="col">
+                            <h1 th:text="${tarefa.title}">Criando modelo de banco</h1>
                         </div>
-                        <p style="margin: 10px;" th:text="${tarefa.description}">Paragraph</p>
-                        <p class="font-monospace text-break" th:text="${tarefa.perfil.name}">Murilo Pereira</p><strong class="text-success">150pts</strong>
-                        <div class="progress" style="margin: 40px;margin-top: 10px;">
-                            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">100%</div>
-                        </div><button class="btn btn-success" type="button" style="margin-bottom: 20px;">Pegar pontos</button>
                     </div>
+                    <p style="margin: 10px;" th:text="${tarefa.description}">Paragraph</p>
+                    <p class="font-monospace text-break" th:text="${tarefa.perfil.name}">Murilo Pereira</p><strong
+                        class="text-success">150pts</strong>
+                    <div class="progress" style="margin: 40px;margin-top: 10px;">
+                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">100%
+                        </div>
+                    </div>
+                    <form action="#" th:action="@{/}" method="post">
+                        <button class="btn btn-success" type="submit"
+                                th:formaction="@{/tarefas/concluidas/pegarPontos/{id}(id=${tarefa.id})}"
+                                style="margin: 20px;">Pegar pontos
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

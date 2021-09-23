@@ -68,13 +68,29 @@ public class TarefaController {
         return "redirect:/tarefas";
     }
 
-    @GetMapping(value = "/concluidas")
+    @GetMapping(value = "/tarefas/concluidas")
     public String tarefasConcluida(HttpServletRequest request, Model mv) {
         getModelAndView(request, mv);
         List<Tarefa> tarefasConcluidasUsuario = tarefaRepository.findByPerfil(authenticationFacade.getSessionUser(mv).getPerfil().getName());
         mv.addAttribute("tarefas", tarefasConcluidasUsuario);
         return "concluidas";
     }
+
+    @PostMapping(value = "/tarefas/concluidas/pegarPontos/{id}")
+    public String pegarPontos(HttpServletRequest request, Model mv,@PathVariable("id") Long id) {
+        Double points = authenticationFacade.getSessionUser(mv).getPerfil().getScore();
+
+        Tarefa tarefa = service.getById(id);
+        Usuario usuario = usuarioRepository.findByEmail(authenticationFacade.getSessionUser(mv).getEmail()).get();
+
+        usuario.getPerfil().setScore(points + tarefa.getScore());
+        usuarioRepository.save(usuario);
+        service.deleteById(id);
+        return "redirect:/tarefas";
+    }
+
+
+
 
     @PostMapping("/tarefas/criarTarefa")
     public String listaSalvas(@Valid @ModelAttribute("tarefa") Tarefa tarefa, BindingResult result, Model model, HttpServletRequest request) {
