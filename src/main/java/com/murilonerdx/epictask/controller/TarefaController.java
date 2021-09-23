@@ -63,16 +63,16 @@ public class TarefaController {
     }
 
     @PostMapping("/")
-    public ModelAndView listaSalvas(@Valid @ModelAttribute("tarefa") Tarefa tarefa, BindingResult result) {
+    public String listaSalvas(@Valid @ModelAttribute("tarefa") Tarefa tarefa, BindingResult result, Model model, HttpServletRequest request) {
         if (result.hasErrors()) {
-            ModelAndView mv = new ModelAndView("criarTarefa");
-            mv.addObject("tarefa", tarefa);
-            mv.addObject("errors", result.getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList()));
-            return mv;
+            model.addAttribute("tarefa", tarefa);
+            model.addAttribute("errors", result.getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList()));
+            return "criarTarefa";
         }
         tarefa.setProgress(0);
         service.create(tarefa);
-        return new ModelAndView("tarefas").addObject("tarefas", service.searchPaginetedTarefas(PageRequest.of(0, 5)));
+        getModelAndView(request, model);
+        return "redirect:/tarefas";
     }
 
     @PostMapping("/tarefa/desistirTarefa")
