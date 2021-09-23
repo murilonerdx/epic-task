@@ -46,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID");
+        http.headers().frameOptions().disable();
     }
 
     @Bean

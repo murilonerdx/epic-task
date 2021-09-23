@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <span style="color: red; font-weight: bolder" th:text="${errors}"></span>
-                    <form th:action="@{/}" method="POST" th:object="${tarefa}">
+                    <form th:action="@{/tarefas/criarTarefa}" method="POST" th:object="${tarefa}">
                         <input type="text" name="title" id="title" placeholder="Digite um titulo *" required=""
                                style="width: 100%;margin-top: 15px;" th:field="*{title}">
                         <span th:errorclass="error" th:errors="*{title}"></span>

@@ -46,14 +46,28 @@ public class TarefaController {
 
     @GetMapping({"/", "/tarefas"})
     public String tarefasPendentes(HttpServletRequest request, Model model) {
+        model.addAttribute("points", authenticationFacade.getSessionUser(model).getPerfil().getScore());
+        model.addAttribute("name", authenticationFacade.getSessionUser(model).getPerfil().getName());
         getModelAndView(request, model);
         return "tarefas";
     }
 
-    @GetMapping(value = "/criarTarefa")
+    @GetMapping(value = "/tarefas/criarTarefa")
     public String criarTarefa(Tarefa tarefa, HttpServletRequest request, Model mv) {
         getModelAndView(request, mv);
         return "criarTarefa";
+    }
+
+    @PostMapping("/tarefas/pegarTarefa/{id}")
+    public String pegarTarefa(@PathVariable("id") Long id, HttpServletRequest request, Model mv){
+        Tarefa obj = service.getById(id);
+        if(obj.isObtain()){
+            return "redirect:/tarefas";
+        }
+        obj.setPerfil(authenticationFacade.getSessionUser(mv).getPerfil());
+        obj.setObtain(true);
+        service.update(obj, id);
+        return "redirect:/tarefas";
     }
 
     @GetMapping(value = "/concluidas")
@@ -64,7 +78,7 @@ public class TarefaController {
         return "concluidas";
     }
 
-    @PostMapping("/")
+    @PostMapping("/tarefas/criarTarefa")
     public String listaSalvas(@Valid @ModelAttribute("tarefa") Tarefa tarefa, BindingResult result, Model model, HttpServletRequest request) {
         if (result.hasErrors()) {
             model.addAttribute("tarefa", tarefa);
@@ -77,21 +91,20 @@ public class TarefaController {
         return "redirect:/tarefas";
     }
 
-    @PostMapping("/tarefa/desistirTarefa")
-    public String desistirTarefa(@ModelAttribute Tarefa tarefa, HttpServletRequest request, Model model){
-        Tarefa backTarefa = service.findByTitleAndPerfil(tarefa.getTitle(), authenticationFacade.getSessionUser(model).getPerfil());
-        tarefa.setId(backTarefa.getId());
-        tarefa.setPerfil(null);
-        service.update(tarefa, tarefa.getId());
+    @PostMapping("/tarefas/desistirTarefa/{id}")
+    public String desistirTarefa(@ModelAttribute("tarefa") Tarefa tarefa, @PathVariable("id") Long id,HttpServletRequest request, Model model){
+        Tarefa obj = service.getById(id);
+        obj.setPerfil(null);
+        obj.setObtain(false);
+        service.update(obj, id);
         getModelAndView(request, model);
-        return "tarefas";
+        return "redirect:/tarefas";
     }
 
     @GetMapping("/status/tarefa/{id}")
     public ModelAndView statusTarefa(Model model, @PathVariable("id") Long id, HttpServletRequest request){
         Tarefa tarefa = service.getById(id);
         model.addAttribute("tarefa", tarefa);
-        getModelAndView(request,model);
         if(tarefa.getPerfil() == authenticationFacade.getSessionUser(model).getPerfil()){
             return new ModelAndView("statusTarefa");
         }
@@ -104,8 +117,7 @@ public class TarefaController {
         tarefa.setStatusTask(Arrays.stream(StatusTarefa.values()).filter(x-> Objects.equals(x.getId(), Integer.parseInt(subjectOrder))).findFirst().orElse(null));
         tarefa.setProgress(Integer.parseInt(subjectOrder) == 0 ? 20 : (Integer.parseInt(subjectOrder) + 1) * 20);
         service.update(tarefa, id);
-        getModelAndView(request, model);
-        return "redirect:/";
+        return "redirect:/tarefas";
     }
 
     public Model getModelAndView(HttpServletRequest request, Model mv) {

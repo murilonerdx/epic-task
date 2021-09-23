@@ -6,7 +6,7 @@
 <title>Tarefas</title>
 <h2 class="display-4 text-nowrap text-uppercase text-center" style="margin: 10px;margin-bottom: 10px;">Tarefas
     pendentes</h2><a class="btn btn-primary" data-bss-hover-animate="pulse" type="button"
-                     style="margin: 10px;margin-left: 35%;" href="/criarTarefa">Criar tarefa</a>
+                     style="margin: 10px;margin-left: 35%;" href="/tarefas/criarTarefa">Criar tarefa</a>
 <div class="row d-flex justify-content-around justify-content-center" th:each="tarefa : ${tarefas}">
     <div class="col-md-6 text-center" style="box-shadow: 0px 0px 7px;margin: 10px;" th:if="${tarefa.obtain == false}">
         <div class="row">
@@ -14,17 +14,19 @@
         </div>
         <p style="margin: 10px;" th:text="${tarefa.description}">Paragraph</p><strong class="text-success"
                                                                                       th:text="${tarefa.score}">150pts</strong>
-
-
         <div class="progress" style="margin-top: 10px;">
             <div class="progress-bar progress-bar-striped progress-bar-animated"
                  th:attr="aria-valuenow=${tarefa.progress}" aria-valuemin="0" aria-valuemax="100"
                  th:style="'width: ' + ${tarefa.progress} +'%;'" th:text="${tarefa.progress} + '%'">
             </div>
         </div>
-        <button class="btn btn-success" type="button" style="margin: 20px;">Pegar tarefa</button>
+        <form action="#" th:action="@{/}" method="post">
+            <button class="btn btn-primary" type="submit" th:formaction="@{/tarefas/pegarTarefa/{id}(id=${tarefa.id})}"
+                    style="margin: 20px;">Pegar tarefa</button>
+        </form>
     </div>
-    <div class="col-md-6 text-center" style="box-shadow: 0px 0px 5px;margin: 10px;" th:if="${tarefa.obtain == true && tarefa.progress < 100}">
+    <div class="col-md-6 text-center" style="box-shadow: 0px 0px 5px;margin: 10px;"
+         th:if="${tarefa.obtain == true && tarefa.progress < 100}">
         <form action="#" method="POST" th:object="${tarefa}">
             <div class="row">
                 <div class="col">
@@ -44,10 +46,14 @@
                 </div>
             </div>
             <div th:if="${tarefa.perfil.name == name}">
-                <button class="btn btn-warning" type="submit" style="margin: 20px;">Desistir
-                    da tarefa
-                </button>
-                <a class="btn btn-primary" type="button" th:href="@{/status/tarefa/{id}(id=${tarefa.id})}" style="margin: 20px;">Definir status da tarefa</a>
+
+                <form action="#" th:action="@{/}" method="post">
+                    <button class="btn btn-warning" type="submit" th:formaction="@{/tarefas/desistirTarefa/{id}(id=${tarefa.id})}"
+                            style="margin: 20px;">Desistir
+                        da tarefa</button>
+                </form>
+                <a class="btn btn-primary" type="button" th:href="@{/status/tarefa/{id}(id=${tarefa.id})}"
+                   style="margin: 20px;">Definir status da tarefa</a>
             </div>
             <br>
 
