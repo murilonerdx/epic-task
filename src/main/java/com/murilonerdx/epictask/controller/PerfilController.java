@@ -90,7 +90,7 @@ public class PerfilController {
         File index = new File(PATH_LOCAL_IMG);
         ModelAndView mv = new ModelAndView("cadastrarPerfil");
         mv.addObject("points", authenticationFacade.getSessionUser(model).getPerfil().getScore());
-        mv.addObject("role", authenticationFacade.getSessionUser(model).getRole().name());
+        mv.addObject("role", authenticationFacade.getSessionUser(model).getRole().name().equals("ADMIN"));
         List<Usuario> usuarios = usuarioService.findByRole();
 
         /* Deletar todos as imagens toda vez que chamar o endpoint

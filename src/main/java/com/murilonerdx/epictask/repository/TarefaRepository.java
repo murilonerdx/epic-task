@@ -18,4 +18,6 @@ public interface TarefaRepository extends JpaRepository<Tarefa, Long> {
     List<Tarefa> findByPerfil(@Param("name") String name);
     @Query("SELECT u FROM Tarefa u WHERE u.perfil.name = :name")
     List<Tarefa> findUniqueByPerfilName(@Param("name") String name);
+    @Query("SELECT u FROM Tarefa u WHERE u.progress = 80")
+    List<Tarefa> findByTarefaWhereProgressFinal();
 }
