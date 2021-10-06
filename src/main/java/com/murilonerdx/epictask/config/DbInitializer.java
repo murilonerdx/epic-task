@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.stream.Stream;
+import javax.annotation.PostConstruct;
 import javax.persistence.OneToOne;
 import javax.persistence.PostPersist;
 
@@ -33,6 +34,7 @@ public class DbInitializer {
   public boolean instantiateDatabase(){
 
     Perfil perfil = new Perfil(null, "Murilo",null, 200.00);
+    //Senha 123
     Usuario user = new Usuario(null, "mu-silva@outlook.com","$2a$12$QyF4w1FII8opXmjlEX53PuK45.a8MBQI40c7kbQ9o5y1fbUKwHrfW", Role.ADMIN, perfil);
     userRepository.save(user);
 
