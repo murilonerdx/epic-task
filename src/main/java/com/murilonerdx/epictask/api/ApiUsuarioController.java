@@ -1,17 +1,14 @@
 package com.murilonerdx.epictask.api;
 
-import com.murilonerdx.epictask.entities.Tarefa;
 import com.murilonerdx.epictask.entities.Usuario;
-import com.murilonerdx.epictask.repository.TarefaRepository;
+import com.murilonerdx.epictask.entities.dto.UsuarioDTO;
 import com.murilonerdx.epictask.repository.UsuarioRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -20,19 +17,25 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/usuario")
 @Api(tags="Endpoint para usuario")
 public class ApiUsuarioController {
+
     @Autowired
     private UsuarioRepository repository;
 
     @GetMapping
     @ApiOperation(value = "Buscando usuarios")
     @Cacheable("usuarios")
-    public List<Usuario> index() {
-        return repository.findAll();
+    public List<UsuarioDTO> index() {
+        List<UsuarioDTO> usuarios = repository.findAll().stream().map(user -> {
+            UsuarioDTO usuarioDTO = new ModelMapper().map(user, UsuarioDTO.class);
+            return usuarioDTO;
+        }).collect(Collectors.toList());
+        return usuarios;
     }
 
     @PostMapping()
@@ -51,8 +54,10 @@ public class ApiUsuarioController {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Buscar usuario por id")
-    public ResponseEntity<Usuario> detail(@PathVariable Long id) {
-        return ResponseEntity.of(repository.findById(id));
+    public ResponseEntity<UsuarioDTO> detail(@PathVariable Long id) {
+        Usuario user = repository.findById(id).get();
+        UsuarioDTO usuarioDTO = new ModelMapper().map(user, UsuarioDTO.class);
+        return ResponseEntity.ok(usuarioDTO);
     }
 
     @DeleteMapping
@@ -69,7 +74,7 @@ public class ApiUsuarioController {
     @PutMapping("/{id}")
     @ApiOperation(value = "Atualizando tarefa por id")
     @CacheEvict(value = "usuarios", allEntries = true)
-    public ResponseEntity<Usuario> updatePassword(
+    public ResponseEntity<UsuarioDTO> updatePassword(
             @PathVariable Long id,
             @RequestBody @Valid Usuario newUsuario) {
         Optional<Usuario> optional = repository.findById(id);
@@ -77,10 +82,10 @@ public class ApiUsuarioController {
         if (optional.isEmpty())
             return ResponseEntity.notFound().build();
 
-        Usuario usuario = optional.get();
-        usuario.setPassword(newUsuario.getPassword());
-        repository.save(usuario);
-
-        return ResponseEntity.ok(usuario);
+        Usuario user = optional.get();
+        user.setPassword(newUsuario.getPassword());
+        repository.save(user);
+        UsuarioDTO usuarioDTO = new ModelMapper().map(user, UsuarioDTO.class);
+        return ResponseEntity.ok(usuarioDTO);
     }
 }
