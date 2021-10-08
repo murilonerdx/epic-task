@@ -96,7 +96,7 @@ public class TarefaController {
 
         Tarefa tarefa = service.getById(id);
         Usuario usuario = usuarioRepository.findByEmail(authenticationFacade.getSessionUser(mv).getEmail()).get();
-
+        usuario.getPerfil().setQuantidadeTarefaConcluida(usuario.getPerfil().getQuantidadeTarefaConcluida() + 1);
         if(tarefa.getPerfil() == usuario.getPerfil()){
             usuario.getPerfil().setScore(points + tarefa.getScore());
             usuarioRepository.save(usuario);
@@ -112,6 +112,10 @@ public class TarefaController {
             model.addAttribute("errors", result.getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList()));
             return "criarTarefa";
         }
+        Usuario usuario = usuarioRepository.findByEmail(authenticationFacade.getSessionUser(model).getEmail()).get();
+        usuario.getPerfil().setQuantidadeTarefaCriada(usuario.getPerfil().getQuantidadeTarefaCriada() + 1);
+        usuarioRepository.save(usuario);
+
         tarefa.setProgress(0);
         service.create(tarefa);
         getModelAndView(request, model);
@@ -177,6 +181,13 @@ public class TarefaController {
         }
         mv.addAttribute("tarefas", service.searchPaginetedTarefas(PageRequest.of(page, size)));
         return mv;
+    }
+
+    @GetMapping(value="/tarefas/ranking")
+    public ModelAndView ranking(Model mv, HttpServletRequest request){
+        getModelAndView(request, mv);
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        return new ModelAndView("ranking").addObject("usuarios", usuarios.subList(0, Math.min(usuarios.size(), 10)).stream().sorted(Usuario::compareTo).collect(Collectors.toList()));
     }
 
 }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head th:include="_template :: head"></head>
+
+<body id="page-top">
+<title>Ranking </title>
+    <div id="wrapper">
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold">Ranking</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+                                <table class="table my-0">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>NOME</th>
+                                            <th>EMAIL</th>
+                                            <th>QTD. TAREFA CONCLUIDA</th>
+                                            <th>QTD. TAREFA CRIADA</th>
+                                            <th>ROLE</th>
+                                            <th>PONTOS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="usuario, usuarioPosition : ${usuarios}">
+                                            <td th:text="${usuarioPosition.count}">1</td>
+                                            <td><img class="rounded-circle me-2" width="30" height="30" th:src="@{/show/perfil.jpg}"><strong th:text="${usuario.perfil.name}">Airi Satou</strong></td>
+                                            <td th:text="${usuario.email}">email@hotmail.com</td>
+                                            <td th:text="${usuario.perfil.quantidadeTarefaConcluida}">2</td>
+                                            <td th:text="${usuario.perfil.quantidadeTarefaCriada}">2</td>
+                                            <td th:text="${usuario.role}">ADMIN</td>
+                                            <td th:text="${usuario.perfil.score} + 'PTS'">200PTS</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

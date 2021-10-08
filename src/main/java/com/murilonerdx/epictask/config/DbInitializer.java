@@ -33,14 +33,18 @@ public class DbInitializer {
   @Bean
   public boolean instantiateDatabase(){
 
-    Perfil perfil = new Perfil(null, "Murilo",null, 200.00);
+    Perfil perfil = new Perfil(null, "Murilo",null, 200.00, 2, 2);
     //Senha 123
     Usuario user = new Usuario(null, "mu-silva@outlook.com","$2a$12$QyF4w1FII8opXmjlEX53PuK45.a8MBQI40c7kbQ9o5y1fbUKwHrfW", Role.ADMIN, perfil);
-    userRepository.save(user);
+
+    Perfil perfil2 = new Perfil(null, "Robertinho",null, 250.00, 2, 2);
+    //Senha 123
+    Usuario user2 = new Usuario(null, "robertinho@hotmail.com","$2a$12$QyF4w1FII8opXmjlEX53PuK45.a8MBQI40c7kbQ9o5y1fbUKwHrfW", Role.ADMIN, perfil2);
+    userRepository.saveAll(Arrays.asList(user, user2));
 
     Tarefa task = new Tarefa(null, "Criar banco de dados Oracle", "Banco de dados com dados populados", LocalDate
         .now(), true,
-        StatusTarefa.ANALISE, 0, 150.00, perfil);
+        StatusTarefa.ANALISE, 0, 250.00, perfil);
     Tarefa task2 = new Tarefa(null, "Criar modelo no Azure", "Alguma coisa", LocalDate.now().minusDays(5), false,StatusTarefa.ANALISE, 60, 150, null);
     taskRepository.saveAll(Arrays.asList(task, task2));
     return false;

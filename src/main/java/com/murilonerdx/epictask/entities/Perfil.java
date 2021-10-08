@@ -3,14 +3,12 @@ package com.murilonerdx.epictask.entities;
 
 import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.Objects;
 
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -24,5 +22,8 @@ public class Perfil {
   @Lob
   private byte[] data;
   private double score;
+  private int quantidadeTarefaConcluida;
+  private int quantidadeTarefaCriada;
+
 
 }

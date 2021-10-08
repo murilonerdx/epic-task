@@ -9,15 +9,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Objects;
 
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name="tb_usuario")
-public class Usuario implements UserDetails {
+public class Usuario implements UserDetails, Comparable<Usuario>{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -67,5 +67,15 @@ public class Usuario implements UserDetails {
   @Override
   public boolean isEnabled() {
     return true;
+  }
+
+  @Override
+  public int compareTo(Usuario o) {
+    if(getPerfil().getScore() > o.getPerfil().getScore()){
+      return -1;
+    }if(getPerfil().getScore() < o.getPerfil().getScore()){
+      return 1;
+    }
+    return 0;
   }
 }
