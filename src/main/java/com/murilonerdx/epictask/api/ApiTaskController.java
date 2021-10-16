@@ -2,8 +2,7 @@ package com.murilonerdx.epictask.api;
 
 import com.murilonerdx.epictask.entities.Tarefa;
 import com.murilonerdx.epictask.repository.TarefaRepository;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -21,6 +20,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/task")
 @Api(tags="Endpoint de tarefas")
+@ApiImplicitParams({
+        @ApiImplicitParam(name = "Authorization", value = "Authorization token",
+                required = true, dataType = "string", paramType = "header") })
 public class ApiTaskController {
 
     @Autowired

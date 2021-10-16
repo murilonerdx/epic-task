@@ -3,8 +3,7 @@ package com.murilonerdx.epictask.api;
 import com.murilonerdx.epictask.entities.Usuario;
 import com.murilonerdx.epictask.entities.dto.UsuarioDTO;
 import com.murilonerdx.epictask.repository.UsuarioRepository;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -22,6 +21,9 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/usuario")
 @Api(tags="Endpoint para usuario")
+@ApiImplicitParams({
+        @ApiImplicitParam(name = "Authorization", value = "Authorization token",
+                required = true, dataType = "string", paramType = "header") })
 public class ApiUsuarioController {
 
     @Autowired
