@@ -143,7 +143,6 @@ public class TarefaController {
 
     tarefa.setProgress(0);
     service.create(tarefa);
-    getModelAndView(request, model);
     return "redirect:/tarefas";
   }
 
@@ -157,7 +156,6 @@ public class TarefaController {
     obj.setPerfil(null);
     obj.setObtain(false);
     service.update(obj, id);
-    getModelAndView(request, model);
     return "redirect:/tarefas";
   }
 
