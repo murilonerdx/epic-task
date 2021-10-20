@@ -31,7 +31,7 @@ public class Usuario implements UserDetails, Comparable<Usuario>{
   @Enumerated(value=EnumType.STRING)
   private Role role;
 
-  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private Perfil perfil;
 
   public Usuario(Long id, String email, String password, Role role){

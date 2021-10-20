@@ -108,7 +108,7 @@ public class TarefaController {
     usuario
         .getPerfil()
         .setQuantidadeTarefaConcluida(usuario.getPerfil().getQuantidadeTarefaConcluida() + 1);
-    if (tarefa.getPerfil() == usuario.getPerfil()) {
+    if (tarefa.getPerfil().getName().equals(usuario.getPerfil().getName())) {
       usuario.getPerfil().setScore(points + tarefa.getScore());
       usuarioRepository.save(usuario);
       service.deleteById(id);
