@@ -1,6 +1,6 @@
 package com.murilonerdx.epictask.api;
 
-import com.murilonerdx.epictask.entities.Login;
+import com.murilonerdx.epictask.entities.dto.LoginDTO;
 import com.murilonerdx.epictask.services.security.TokenService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,7 +31,7 @@ public class ApiAuthenticationController {
 
     @PostMapping()
     @ApiOperation(value = "Autenticação")
-    public ResponseEntity<Object> auth(@RequestBody @Valid Login login){
+    public ResponseEntity<Object> auth(@RequestBody @Valid LoginDTO login){
         Map<Object, Object> model = new HashMap<>();
 
         UsernamePasswordAuthenticationToken authentication =

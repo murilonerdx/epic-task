@@ -6,9 +6,11 @@ import javax.validation.constraints.Size;
 import com.murilonerdx.epictask.entities.enums.Role;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 
 
@@ -41,7 +43,7 @@ public class Usuario implements UserDetails, Comparable<Usuario>{
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return null;
+    return Collections.singleton(new SimpleGrantedAuthority(role.name()));
   }
 
   @Override
