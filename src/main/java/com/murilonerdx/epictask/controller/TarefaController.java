@@ -152,10 +152,10 @@ public class TarefaController {
       @PathVariable("id") Long id,
       HttpServletRequest request,
       Model model) {
-    Tarefa obj = service.getById(id);
-    obj.setPerfil(null);
-    obj.setObtain(false);
-    service.update(obj, id);
+    tarefa.setPerfil(null);
+    tarefa.setObtain(false);
+    if(tarefa.getProgress() == null) tarefa.setProgress(0);
+    service.update(tarefa, id);
     return "redirect:/tarefas";
   }
 

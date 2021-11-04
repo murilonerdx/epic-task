@@ -60,7 +60,7 @@ public class Tarefa implements Serializable {
 
   private double score;
 
-  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+  @OneToOne(fetch = FetchType.EAGER)
   private Perfil perfil;
 
   @Override

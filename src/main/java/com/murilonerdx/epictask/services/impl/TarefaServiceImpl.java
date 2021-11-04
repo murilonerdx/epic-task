@@ -36,7 +36,9 @@ public class TarefaServiceImpl implements TarefaService {
     public Tarefa update(Tarefa tarefa, Long id) {
         Tarefa object = repository.findById(id).get();
         object.setStatusTask(tarefa.getStatusTask());
+        object.setPerfil(tarefa.getPerfil());
         object.setProgress(tarefa.getProgress());
+        object.setObtain(tarefa.isObtain());
         return repository.save(object);
     }
 
