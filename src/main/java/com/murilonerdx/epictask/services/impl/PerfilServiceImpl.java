@@ -21,21 +21,6 @@ public class PerfilServiceImpl implements PerfilService {
     }
 
     @Override
-    public Perfil getById(Long id) {
-        return repository.getById(id);
-    }
-
-    @Override
-    public Perfil update(Perfil perfil, Long id) {
-        return repository.save(perfil);
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        repository.deleteById(id);
-    }
-
-    @Override
     public Perfil create(Perfil perfil) {
         return repository.save(perfil);
     }

@@ -50,11 +50,6 @@ public class TarefaServiceImpl implements TarefaService {
     }
 
     @Override
-    public Tarefa findByTitleAndPerfil(String title, Perfil perfil){
-        return repository.findByTitleAndPerfil(title, perfil);
-    }
-
-    @Override
     public Page<Tarefa> searchPaginetedTarefas(Pageable pageable) {
         return repository.findAll(pageable);
     }
