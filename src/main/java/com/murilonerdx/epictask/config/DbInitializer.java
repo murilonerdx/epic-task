@@ -5,19 +5,13 @@ import com.murilonerdx.epictask.entities.Tarefa;
 import com.murilonerdx.epictask.entities.Usuario;
 import com.murilonerdx.epictask.entities.enums.Role;
 import com.murilonerdx.epictask.entities.enums.StatusTarefa;
-import com.murilonerdx.epictask.repository.PerfilRepository;
 import com.murilonerdx.epictask.repository.TarefaRepository;
 import com.murilonerdx.epictask.repository.UsuarioRepository;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.stream.Stream;
-import javax.annotation.PostConstruct;
-import javax.persistence.OneToOne;
-import javax.persistence.PostPersist;
+
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;

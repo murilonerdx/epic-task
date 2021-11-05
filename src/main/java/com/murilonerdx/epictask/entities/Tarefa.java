@@ -6,7 +6,6 @@ import com.murilonerdx.epictask.entities.enums.StatusTarefa;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -25,7 +24,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
-import org.hibernate.validator.constraints.Length;
 
 @Getter
 @Setter

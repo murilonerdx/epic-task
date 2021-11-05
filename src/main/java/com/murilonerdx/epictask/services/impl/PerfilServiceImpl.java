@@ -1,13 +1,8 @@
 package com.murilonerdx.epictask.services.impl;
 
 import com.murilonerdx.epictask.entities.Perfil;
-import com.murilonerdx.epictask.entities.Tarefa;
-import com.murilonerdx.epictask.entities.Usuario;
-import com.murilonerdx.epictask.entities.enums.Role;
 import com.murilonerdx.epictask.repository.PerfilRepository;
-import com.murilonerdx.epictask.repository.TarefaRepository;
 import com.murilonerdx.epictask.services.PerfilService;
-import com.murilonerdx.epictask.services.TarefaService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -2,9 +2,6 @@ package com.murilonerdx.epictask.services.impl;
 
 import com.murilonerdx.epictask.entities.Perfil;
 import com.murilonerdx.epictask.entities.Tarefa;
-import com.murilonerdx.epictask.entities.Usuario;
-import com.murilonerdx.epictask.entities.enums.Role;
-import com.murilonerdx.epictask.entities.enums.StatusTarefa;
 import com.murilonerdx.epictask.repository.TarefaRepository;
 import com.murilonerdx.epictask.services.TarefaService;
 import lombok.AllArgsConstructor;

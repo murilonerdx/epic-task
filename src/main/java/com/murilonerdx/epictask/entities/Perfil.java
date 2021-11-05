@@ -2,12 +2,10 @@ package com.murilonerdx.epictask.entities;
 
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 
 import lombok.*;
 import org.hibernate.annotations.Type;
 
-import java.util.Objects;
 
 
 @Data

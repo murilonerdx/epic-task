@@ -1,11 +1,8 @@
 package com.murilonerdx.epictask.services.impl;
 
 import com.murilonerdx.epictask.entities.Usuario;
-import com.murilonerdx.epictask.entities.enums.Role;
 import com.murilonerdx.epictask.repository.UsuarioRepository;
 import com.murilonerdx.epictask.services.UsuarioService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

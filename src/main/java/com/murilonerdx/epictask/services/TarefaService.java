@@ -14,5 +14,4 @@ public interface TarefaService {
     void deleteById(Long id);
     Tarefa create(Tarefa tarefa);
     Page<Tarefa> searchPaginetedTarefas(Pageable pageable);
-    Tarefa findByTitleAndPerfil(String title, Perfil perfil);
 }

@@ -3,7 +3,6 @@ package com.murilonerdx.epictask.controller;
 import com.murilonerdx.epictask.entities.Usuario;
 import com.murilonerdx.epictask.entities.enums.Role;
 import com.murilonerdx.epictask.services.impl.UsuarioServiceImpl;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

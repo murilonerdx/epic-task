@@ -2,8 +2,6 @@ package com.murilonerdx.epictask.services.security;
 
 import com.murilonerdx.epictask.entities.Usuario;
 import com.murilonerdx.epictask.repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
